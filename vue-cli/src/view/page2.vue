@@ -1,10 +1,12 @@
 <template>
   <div class="page">
-2222
+    <div>{{renamePage2}}</div>
+    <div>{{renameDoneList}}</div>
   </div>
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
   components: {},
   data() {
@@ -16,7 +18,14 @@ export default {
   mounted() {},
   methods: {},
   watch: {},
-  computed: {}
+  computed: {
+    ...mapState({
+      renamePage2: 'page2',
+    }),
+    ...mapGetters({
+      renameDoneList: 'doneList'  // this.$store.getters.doneList
+    })
+  }
 }
 </script>
 
