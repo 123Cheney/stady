@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link , withRouter} from "react-router-dom";
-import { message } from 'antd';
+import { connect } from 'react-redux'
 
 class PageOne extends Component {
   constructor(props) {
@@ -9,14 +9,33 @@ class PageOne extends Component {
   componentDidMount(){
     
   }
+  handleClick=()=>{
+    alert('单击按钮了')
+    this.props.handleClick();
+  }
   render() {
     return ( 
       <div className="page1" >
-      <Link to='/detail'> page1</Link>
-       
+        <button onClick={this.handleClick}>Action</button>
+        <Link to='/detail'>page1</Link>
       </div>
     );
   }
 }
+function mapStateToProps(state = {}, ownProps) {
+  console.log(state)
+  return state;
+}
 
-export default PageOne;
+function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    handleClick: (callback) => {
+      dispatch({
+          type:'CLICK_PAGE1',
+          data:'这是一个数据'
+        });
+    }, 
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(PageOne);
