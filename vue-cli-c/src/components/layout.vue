@@ -77,5 +77,6 @@ export default {
 }
 .right-box{
   flex: 1;
+  background: #f5f7fa;
 }
 </style>

@@ -7,10 +7,14 @@ import store from './store'
 import './assets/font/iconfont.css';
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
+import './common.css'
 
 Vue.use(iView);
-Vue.config.productionTip = false
-
+Vue.config.productionTip = false;
+document.documentElement.style.fontSize = document.documentElement.scrollWidth / 1440*100 + 'px';
+window.onresize = function(){
+  document.documentElement.style.fontSize = document.documentElement.offsetWidth / 1440*100 + 'px';
+}
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

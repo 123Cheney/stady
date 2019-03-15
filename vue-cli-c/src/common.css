@@ -1,0 +1,25 @@
+.ivu-page {
+
+}
+.ivu-page-prev:hover,
+.ivu-page-next:hover,
+.ivu-page-item:hover{
+  border: 1px solid red;
+}
+.ivu-page-prev:hover a,
+.ivu-page-next:hover a,
+.ivu-page-item:hover a{
+  color: red;
+}
+.ivu-page-item.ivu-page-item-active{
+  background: red;
+  border: 1px solid red;
+}
+.ivu-page-item-active a,
+.ivu-page-item.ivu-page-item-active:hover a{
+  color: #fff;
+}
+.ivu-page-item-jump-next .ivu-icon.ivu-icon-ios-arrow-forward,
+.ivu-page-item-jump-prev .ivu-icon.ivu-icon-ios-arrow-back{
+  color: red;
+}
