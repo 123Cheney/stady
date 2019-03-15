@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link , withRouter} from "react-router-dom";
 import { connect } from 'react-redux'
+import { ClickPage,setCustomerChecked } from './action.js'
 
 class PageOne extends Component {
   constructor(props) {
@@ -29,12 +30,19 @@ function mapStateToProps(state = {}, ownProps) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    handleClick: (callback) => {
-      dispatch({
-          type:'CLICK_PAGE1',
-          data:'这是一个数据'
-        });
-    }, 
+    // handleClick: ()=>{
+    //   dispatch( ClickPage() )
+    // },
+    handleClick:()=>{
+        dispatch(setCustomerChecked());
+    },
+    // handleClick: (callback) => {
+    //   dispatch(
+    //     dispatch({
+    //       type:'CLICK_PAGE1',
+    //       data:'这是一个数据'
+    //    }));
+    // }, 
   }
 }
 
