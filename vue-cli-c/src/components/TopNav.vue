@@ -16,19 +16,19 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .top-nav{
   background: #fff;
   height: 0.43rem;
   line-height: 0.43rem;
-}
-.ivu-icon{
-  padding-left: 0.2rem;
-  font-size: 0.15rem;
-}
-span{
-  font-family: PingFangSC-Regular;
-  font-size: 0.13rem;
-  padding-left: 0.08rem;
+  .ivu-icon{
+    padding-left: 0.2rem;
+    font-size: 0.15rem;
+  }
+  span{
+    font-family: PingFangSC-Regular;
+    font-size: 0.13rem;
+    padding-left: 0.08rem;
+  }
 }
 </style>

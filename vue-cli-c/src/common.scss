@@ -1,0 +1,125 @@
+.ivu-page {
+  .ivu-page-item {
+    &.ivu-page-item-active {
+      background: linear-gradient(to right,#FB6A31,#FA4A57);
+      border: 1px solid #FA4A57;
+      a {
+        color: #fff;
+      }
+      &:hover a {
+        color: #fff;
+      }
+    }
+    &:hover {
+      border: 1px solid #FA4A57;
+
+      a {
+        color: #FA4A57;
+      }
+    }
+  }
+
+  .ivu-page-prev,.ivu-page-next {
+    &.ivu-page-disabled:hover {
+      border: 1px solid #dcdee2;
+      a {
+        color: #dcdee2;
+      }
+    }
+    &:hover {
+      border: 1px solid #FA4A57;
+      a {
+        color: #FA4A57;
+      }
+    }
+  }
+
+  .ivu-page-item-jump-next .ivu-icon.ivu-icon-ios-arrow-forward,
+  .ivu-page-item-jump-prev .ivu-icon.ivu-icon-ios-arrow-back {
+    color: #FA4A57;
+  }
+
+  .ivu-page-options {
+    .ivu-select{
+      &.ivu-select-visible .ivu-select-selection{
+        border: 1px solid #FA4A57;
+        box-shadow: none;
+      }
+      .ivu-select-selection {
+        &.ivu-select-selection-focused{
+          border: 1px solid #FA4A57;
+        }
+        &:hover {
+          border: 1px solid #FA4A57;
+        }
+      }
+    }
+    .ivu-select-dropdown{
+      .ivu-select-item-selected{
+        color:#FA4A57;
+      }
+    }
+    .ivu-page-options-elevator{
+      input{
+        &:hover,&:focus{
+          border: 1px solid #FA4A57;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}
+
+.ivu-modal{
+  .ivu-modal-body{
+    .ivu-modal-confirm-footer{
+      .ivu-btn.ivu-btn-text{
+        &:hover{
+          color: #FB6A31;
+        }
+        &:focus{
+          box-shadow: none;
+          color: #FA4A57;
+          border: 1px solid transparent;
+        }
+      }
+      .ivu-btn.ivu-btn-primary{
+        background: transparent;
+        border: 1px solid #FF1F36; 
+        color: #FF1F36;
+        &:hover{     
+          background: linear-gradient(to right,#FB6A31,#FA4A57);
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.ivu-input{
+  &:hover,&:focus{
+    border-color:#9F65D9; 
+    box-shadow: none;
+  }
+}
+
+.ivu-select{
+  &.ivu-select-visible{
+    .ivu-select-selection{
+      &:hover,&:focus{
+        border-color: #9F65D9;
+        box-shadow: none;
+      }
+    }
+  }
+  .ivu-select-selection{
+    &:hover,&:focus{
+      border-color: #9F65D9;
+    }
+  }
+  .ivu-select-dropdown{
+    .ivu-select-item-selected{
+      color: #9F65D9;
+    }
+  }
+}

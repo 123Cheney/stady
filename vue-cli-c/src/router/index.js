@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import layout from '@/components/layout'
 import page1 from '@/view/page1'
 import page2 from '@/view/page2'
-import page3 from '@/view/page3'
+import page3 from '@/view/page3copy'
 import page4 from '@/view/page4'
 
 Vue.use(Router)

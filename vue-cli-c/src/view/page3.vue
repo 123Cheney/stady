@@ -1,33 +1,113 @@
 <template>
   <div>
-    <TopNav icon='md-analytics' firstTier='资产登记' secondTier='单位信息登记'/>
-    <MyButton type='main' icon='md-add' text='新建'/>
-    <MyButton type='secondary' text='查询' @clickBtn='searchList'/>
-    <MyButton type='commonly' text='重置'/>
-    <MyButton type='commonly' text='查询结果导出'/>
-    <MyButton type='commonly' icon='ios-trash-outline' text='批量删除'/>
+    <el-card class="box-card m20 table160">
+      <div slot="header" class="clearfix">
+        <span>信息系统项目申报情况</span>
+      </div>
+      <el-table :data="tableData">
+        <el-table-column type="selection" width="55"></el-table-column>
+        <el-table-column type="index" width="50" label="序号"></el-table-column>
+        <el-table-column label="项目名称">
+          <template slot-scope="{ row }">
+            <el-input v-if="true" v-model="row.date" size="small" placeholder="请填写预算项目名称"></el-input>
+            <span v-else>{{row.date}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="frequency" label="批复时间及文号">
+          <template slot-scope="{ row }">
+            <el-input v-if="true" v-model="row.frequency" size="small" placeholder="请填写批复时间及文号"></el-input>
+            <span v-else>{{row.frequency}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="scale" label="项目预算(万元）">
+          <template slot-scope="{ row }">
+            <el-input-number v-model="row.scale" controls-position="right" size="small"></el-input-number>
+          </template>
+        </el-table-column>
+        <el-table-column prop="memory" label="资料" width="400">
+          <template >
+            <el-upload
+              class="upload-demo"
+              ref="upload"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :limit="2"
+              :auto-upload="false"
+            >
+              <p slot="trigger" class="upload">
+                <span>上传项目建议书</span>
+              </p>
+            </el-upload>
+            <el-upload
+              class="upload-demo"
+              ref="upload"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :limit="2"
+              :auto-upload="false"
+            >
+              <p slot="trigger" class="upload">
+                <span>上传可行性研究报告</span>
+              </p>
+            </el-upload>
+            <el-upload
+              class="upload-demo"
+              ref="upload"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :limit="2"
+              :auto-upload="false"
+            >
+              <p slot="trigger" class="upload">
+                <span>上传初步设计方案</span>
+              </p>
+            </el-upload>
+            <el-upload
+              class="upload-demo"
+              ref="upload"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :limit="2"
+              :auto-upload="false"
+            >
+              <p slot="trigger" class="upload">
+                <span>上传竣工验收报告</span>
+              </p>
+            </el-upload>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-card>
   </div>
 </template>
 
 <script>
-import TopNav from '../components/TopNav'
-import MyButton from '../components/MyButton'
 export default {
-  components: {TopNav,MyButton},
   data() {
     return {
-
-    }
+      tableData: [
+        {
+          date: "",
+          frequency: "", // 系统年度使用频率
+          scale: "", //系统用户规模
+          memory: "" // 数据存储量大小(GB)
+        }
+      ]
+    };
   },
   props: [],
   methods: {
-    searchList(){
-      console.log('ddd')
+    searchList() {
+      console.log("ddd");
     }
   },
   watch: {},
   computed: {}
-}
+};
 </script>
 
 <style scoped>

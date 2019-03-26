@@ -7,9 +7,12 @@ import store from './store'
 import './assets/font/iconfont.css';
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
-import './common.css'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import './common.scss'
 
 Vue.use(iView);
+Vue.use(ElementUI);
 Vue.config.productionTip = false;
 document.documentElement.style.fontSize = document.documentElement.scrollWidth / 1440*100 + 'px';
 window.onresize = function(){
