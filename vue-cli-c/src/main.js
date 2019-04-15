@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import echarts from 'echarts'
 import './assets/font/iconfont.css';
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
@@ -11,6 +12,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import './common.scss'
 
+Vue.prototype.$echarts = echarts;
 Vue.use(iView);
 Vue.use(ElementUI);
 Vue.config.productionTip = false;

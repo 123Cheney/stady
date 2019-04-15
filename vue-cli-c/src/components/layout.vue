@@ -42,8 +42,8 @@ export default {
           title:'电视剧',
           icon:'ios-people',
           menuItem:[
-            {name:'3-1',title:'寻龙诀'},
-            {name:'3-2',title:'驯龙高手'},
+            {name:'3-1',title:'寻龙诀',to:'/page5'},
+            {name:'3-2',title:'驯龙高手',to:'/page6'},
           ]
         },
         {

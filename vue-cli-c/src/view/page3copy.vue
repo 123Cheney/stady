@@ -16,9 +16,9 @@
             <el-input v-model="scope.row.a" size="small"></el-input>
           </template>
         </el-table-column>
-        <el-table-column prop="b" label="批复时间及文号" >
+        <el-table-column prop="b" label="年份" >
           <template slot-scope="scope">
-            <el-input v-model="scope.row.b" size="small"></el-input>
+            <el-date-picker v-model="scope.row.b" type="year" placeholder="选择年" size="small"></el-date-picker>
           </template>
         </el-table-column>
         <el-table-column prop="c" label="项目预算(万元)">
@@ -33,17 +33,31 @@
         </el-table-column>
       </el-table>
     </el-card>
+    <quill-editor v-model="infoForm"
+      ref="myQuillEditor"
+      class="editer"
+      :options="editorOption" @change="onEditorChange($event)" @ready="onEditorReady($event)">
+    </quill-editor>
   </div>
 </template>
 
 <script>
+import { quillEditor } from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 export default {
-  components: {},
+  components: {quillEditor},
   data() {
     return {
+      infoForm: '',
+      editorOption: {
+          theme: 'bubble',
+          placeholder: "输入备注",
+      },
       tableData:[
-        {a:'a1',b:'b1',c:'c1',d:'d1'},
-        {a:'a2',b:'b2',c:'c2',d:'d2'},
+        {a:'a1',b:'2019',c:'c1',d:'d1'},
+        {a:'a2',b:'2018',c:'c2',d:'d2'},
         {a:'1',b:'',c:'',d:''},
         {a:'12',b:'',c:'',d:''},
         {a:'1',b:'',c:'',d:''},
@@ -59,6 +73,12 @@ export default {
   created(){},
   mounted() {},
   methods: {
+     onEditorReady(editor) {
+       console.log('editoe',editor)
+      },
+      onEditorChange(param){
+        console.log(param)
+      },
     handleSelect(val,row){
       this.checkedItems = val;
     },
@@ -97,12 +117,21 @@ export default {
     }
   },
   watch: {},
-  computed: {},
+  computed: {
+      editor() {
+        return this.$refs.myQuillEditor.quill
+      }
+    },
 };
 </script>
 
 <style lang="scss" scoped>
 /deep/ thead tr th{
   background: #F5F7FA;
+}
+.quill-editor.editer{
+  border: 1px solid red;
+  width: 200px;
+  height: 200px;
 }
 </style>
