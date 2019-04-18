@@ -76,7 +76,8 @@ export default {
   height: 100%;
 }
 .right-box{
+  width: 100%;
+  height: 100%;
   flex: 1;
-  background: #f5f7fa;
 }
 </style>

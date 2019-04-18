@@ -1,10 +1,6 @@
 <template>
   <div class="page">
-    <cardBox :cardData='cardData'>
-      <template slot-scope="val">
-        <h1>{{val.data.title}}</h1>
-      </template>
-    </cardBox>
+    <cardBox :cardData='cardData'></cardBox>
   </div>
 </template>
 

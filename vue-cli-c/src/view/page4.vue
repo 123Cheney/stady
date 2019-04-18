@@ -1,69 +1,103 @@
 <template>
   <div class="page">
-    <TopNav/>
-    <TopNav icon='md-analytics' firstTier='资产登记' secondTier='单位信息登记'/>
-    <MyButton type='main' icon='md-add' text='新建'/>
-    <MyButton type='secondary' text='查询' @clickBtn='searchList'/>
-    <MyButton type='commonly' text='重置'/>
-    <MyButton type='commonly' text='查询结果导出'/>
-    <MyButton type='commonly' icon='ios-trash-outline' text='批量删除'/>
-    <MyButton type='text' text='回撤' @clickBtn='searchList'/>
-    <MyButton type='commonly' icon='ios-trash-outline' text='批量删除' @clickBtn='deleteList'/>
-    <div>
-      <Input v-model="value" placeholder="Enter something..." style="width: 300px" />
+    <el-button ><router-link to="page4-1"> to apple</router-link></el-button>
+    <el-button>go</el-button>
+    <el-button>go</el-button>
+
+
+    <div class="icon-cards">
+      <div class="icon_cards_content">
+        <div class="icon">
+          <span class="qiu"></span>
+        </div>
+        <div class="icon"></div>
+        <div class="icon"></div>
+        <div class="icon"></div>
+        <div class="icon"></div>
+      </div>
     </div>
-    <div>
-      <Select v-model="value">
-        <Option value="beijing">New York</Option>
-        <Option value="shanghai">London</Option>
-        <Option value="shenzhen">Sydney</Option>
-      </Select>
-    </div>
-    <div>
-      <RadioGroup v-model="animal">
-        <Radio label="金斑蝶"></Radio>
-        <Radio label="爪哇犀牛"></Radio>
-        <Radio label="印度黑羚"></Radio>
-      </RadioGroup>
-    </div>
-    <Page :total="100" show-sizer show-elevator/>
   </div>
 </template>
 
 <script>
-import TopNav from '../components/TopNav'
-import MyButton from '../components/MyButton'
 export default {
-  components: {TopNav,MyButton},
   data() {
-    return {
-      value:'',
-      animal:''
-    }
+    return {};
   },
   props: [],
   mounted() {},
-  methods: {
-    deleteList(){
-      this.$Modal.confirm({
-        title: '确认是否要删除信息？',
-        content: '<p>请您确认是否要删除所选中的信息，删除后将无法恢复。</p>',
-        onOk: () => {
-          this.$Message.info('Clicked ok');
-        },
-        onCancel: () => {
-          // this.$Message.info('Clicked cancel');
-        }
-      });
-    }
-  },
+  methods: {},
   watch: {},
   computed: {}
-}
+};
 </script>
 
-<style scoped>
-.ivu-select{
-  width: 200px;
+<style lang="less" scoped>
+.page {
+  height: 100%;
+  background: #1b2456;
+  .icon-cards {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    perspective: 8000px;
+  }
+  .icon_cards_content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: rotatex(60deg) rotateZ(30deg);
+  }
+  .icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    .qiu {
+      position: absolute;
+      display: inline-block;
+      top: -10px;
+      left: -10px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
+  }
+  .icon:nth-child(1) {
+    border: 1px dashed red;
+    .qiu {
+      // background: #00f1eb;
+      background-image: -webkit-radial-gradient(50% 50% , #0cf1ee, rgb(82, 94, 95));
+      z-index: 100;
+      animation: one 6s infinite;
+    }
+    @keyframes one {
+      0% { left: -10px; top: -10px; opacity: 1; }
+      25% { left: 290px; top: -10px; opacity: 1; }
+      50% { left: 290px; top: 290px; opacity: 1; }
+      75% { left: -10px; top: 290px; opacity: 0; }
+      100% { left: -10px; top: -10px; opacity: 1; }
+    }
+  }
+  .icon:nth-child(2) {
+    border: 1px dashed blue;
+    transform: translateY(150px);
+  }
+  .icon:nth-child(3) {
+    border: 1px dashed yellow;
+    transform: translateY(300px);
+  }
+  .icon:nth-child(4) {
+    border: 1px dashed rgb(231, 35, 231);
+    transform: rotateZ(90deg) translateX(150px) translateY(-150px);
+  }
+  .icon:nth-child(5) {
+    border: 1px dashed rgb(15, 231, 87);
+    transform: rotateZ(90deg) translateX(150px) translateY(150px);
+  }
 }
 </style>

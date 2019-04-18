@@ -5,6 +5,7 @@ import page1 from '@/view/page1'
 import page2 from '@/view/page2'
 import page3 from '@/view/page3copy'
 import page4 from '@/view/page4'
+import page4_1 from '@/view/page4/page4-1.vue'
 import page5 from '@/view/page5'
 import page6 from '@/view/page6'
 
@@ -35,7 +36,12 @@ export default new Router({
         {
           path: '/page4',
           name: 'page4',
-          component: page4
+          component: page4,
+        },
+        {
+          path: '/page4-1',
+          name: 'page4-1',
+          component: page4_1
         },
         {
           path: '/page5',

@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div id="myChart" :style="{width: '100%', height: '600px'}"></div>
+    <div id="myChart" :style="{width: '100%', height: '400px'}"></div>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ export default {
   components: {},
   data() {
     return {
-      msg: "Welcome to Your Vue.js App"
+      mapColor: ["#9ee3ff", "#2d73cf"],
     };
   },
   props: [],
@@ -24,87 +24,90 @@ export default {
       let myChart = this.$echarts.init(document.getElementById("myChart"));
       // 绘制图表
       myChart.setOption({
-        title: {
-          // text: "iphone销量",
-          // subtext: "纯属虚构",
-          // left: "center"
-        },
-        tooltip: {
-          // trigger: "item"
-        },
         legend: {
           orient: "vertical",
           left: "left",
-          data: ["全国存续企业总量", "全国存续企业总注册资本"]
+          selectedMode: "single",
+          data: ["存续企业总量", "存续企业总注册资本", "贸易金额"]
         },
-        visualMap: {
-          min: 0,
-          max: 2500,
-          left: "left",
-          // top: "bottom",
-          text: ["高", "低"], // 文本，默认为数值文本
-          calculable: true,
-          orient: "horizontal",
-          color: ["#9ee3ff", "#2d73cf"]
-        },
+        visualMap: [
+          {
+            type: "continuous",
+            min: 0,
+            max: 1000,
+            // left: 100,
+            seriesIndex: 0,
+            calculable: true,
+            inRange: {
+              color: this.mapColor,
+            }
+          },
+        //   {
+        //     type: "continuous",
+        //     min: 0,
+        //     max: 1000,
+        //     // left: 180,
+        //     seriesIndex: 1,
+        //     calculable: true,
+        //     inRange: {
+        //       color: ["#feffff", "#ff2d00"]
+        //     }
+        //   },
+        //   {
+        //     type: "continuous",
+        //     min: 0,
+        //     max: 1000,
+        //     // left: 260,
+        //     seriesIndex: 2,
+        //     calculable: true,
+        //     inRange: {
+        //       color: ["#dbfae2", "#00aa54"]
+        //     }
+        //   }
+        ],
         series: [
           {
-            name: "全国存续企业总量",
+            name: "存续企业总量",
             type: "map",
             mapType: "china",
-            label: {
-              normal: {
-                show: true,
-                formatter: param => {
-                  // console.log(param)
-                  if (param.value) {
-                    return param.name + param.value;
-                  }
-                }
-              },
-              emphasis: {
-                show: true
+            label: {formatter: (params) => {
+              if(!isNaN(params.value)){
+                console.log(params.value)
               }
-            },
+            }},
+            showLegendSymbol:false,
             data: [
-              { name: "北京", value: Math.round(Math.random() * 1000) },
-              { name: "天津", value: Math.round(Math.random() * 1000) },
-              { name: "上海", value: Math.round(Math.random() * 1000) },
-              { name: "广东", value: Math.round(Math.random() * 1000) },
-              { name: "台湾", value: Math.round(Math.random() * 1000) },
               { name: "香港", value: Math.round(Math.random() * 1000) },
-              { name: "澳门", value: Math.round(Math.random() * 1000) },
-              { name: "青海", value: Math.round(Math.random() * 1000) },
-              { name: "四川", value: Math.round(Math.random() * 1000) },
-              { name: "湖北", value: Math.round(Math.random() * 1000) },
-              { name: "陕西", value: Math.round(Math.random() * 1000) }
+              { name: "贵州", value: Math.round(Math.random() * 1000) },
+              { name: "新疆", value: Math.round(Math.random() * 1000) }
             ]
           },
           {
-            name: "全国存续企业总注册资本",
+            name: "存续企业总注册资本",
             type: "map",
             mapType: "china",
-            label: {
-              normal: {
-                show: true
-              },
-              emphasis: {
-                show: true
-              }
-            },
             data: [
-              { name: "北京", value: Math.round(Math.random() * 1000) },
-              { name: "浙江", value: Math.round(Math.random() * 1000) },
-              { name: "广西", value: Math.round(Math.random() * 1000) },
-              { name: "内蒙古", value: Math.round(Math.random() * 1000) },
               { name: "吉林", value: Math.round(Math.random() * 1000) },
               { name: "贵州", value: Math.round(Math.random() * 1000) },
               { name: "新疆", value: Math.round(Math.random() * 1000) }
             ]
+          },
+          {
+            name: "贸易金额",
+            type: "map",
+            mapType: "china",
+            data: [
+              { name: "北京", value: Math.round(Math.random() * 1000) },
+              { name: "浙江", value: Math.round(Math.random() * 1000) },
+              { name: "广西", value: Math.round(Math.random() * 1000) }
+            ]
           }
         ]
       });
-    },
+      myChart.on('legendselectchanged', function (params) {
+        
+      });
+    }
   },
   watch: {},
   computed: {}
