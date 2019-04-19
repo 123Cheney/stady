@@ -35,24 +35,29 @@ export default {
 //            延时播放
 //            播放次数 (n, infinite)
 //            是否应该轮流反向播放动画(normal,alternate);
+// 我发现了css一个特别
+
+// sass变量
 
 .page {
   height: 100%;
   background: #1b2456;
   .box {
     position: relative;
-    width: 300px;
-    height: 300px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    height: 100%;
+    width:  100%;
+    $width: calc(100% / 2);
+    $height: 100vh;
+    $itemW: calc((100vw - 260px)/2 - 20px);
+    $itemH: calc(100vh - 20px);
+    perspective: 8000px;
     .content {
       position: absolute;
-      width: 100%;
-      height: 100%;
+      width:  $width;
+      height: $height;
       border: 1px solid aqua;
-      // transform-style: preserve-3d;
-      // transform: rotatex(60deg) rotateZ(60deg);
+      transform-style: preserve-3d;
+      // transform: translateX(200px) rotatex(70deg) rotateZ(60deg);
       .dot{
         position: absolute;
         left: 0;
@@ -66,7 +71,7 @@ export default {
             transform: translate(0, 0);
           }
           50% {
-            transform: translate(280px, 0);
+            transform: translate($itemW, 0);
           }
           100% {
             transform: translate(0px, 0px);
@@ -78,13 +83,13 @@ export default {
         animation: dot2 3s ease-in infinite;
         @keyframes dot2 {
           0% {
-            transform: translate(280px, 0);
+            transform: translate($itemW, 0);
           }
           50% {
             transform: translate(0px, 0);
           }
           100% {
-            transform: translate(280px, 0px);
+            transform: translate($itemW, 0px);
           }
         }
       }
@@ -103,7 +108,7 @@ export default {
             transform: translate(0, 0);
           }
           50% {
-            transform: translate(0, 280px);
+            transform: translate(0, $itemH);
           }
           100% {
             transform: translate(0, 0px);

@@ -1,8 +1,8 @@
 <template>
   <div class="page">
     <el-button ><router-link to="page4-1"> to apple</router-link></el-button>
-    <el-button>go</el-button>
-    <el-button>go</el-button>
+    <!-- <el-button>go</el-button>
+    <el-button>go</el-button> -->
 
 
     <div class="icon-cards">
@@ -40,7 +40,7 @@ export default {
     position: absolute;
     width: 300px;
     height: 300px;
-    top: 50%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
     perspective: 8000px;
@@ -65,6 +65,7 @@ export default {
       width: 20px;
       height: 20px;
       border-radius: 50%;
+      transform: rotatex(-60deg) rotateY(30deg);
     }
   }
   .icon:nth-child(1) {
@@ -84,7 +85,7 @@ export default {
     }
   }
   .icon:nth-child(2) {
-    border: 1px dashed blue;
+    border: 1px solid blue;
     transform: translateY(150px);
   }
   .icon:nth-child(3) {
@@ -92,7 +93,7 @@ export default {
     transform: translateY(300px);
   }
   .icon:nth-child(4) {
-    border: 1px dashed rgb(231, 35, 231);
+    border: 1px solid rgb(231, 35, 231);
     transform: rotateZ(90deg) translateX(150px) translateY(-150px);
   }
   .icon:nth-child(5) {
