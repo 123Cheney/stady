@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>page3</title>
+</head>
+<style>
+  html,body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+  body{
+    width: 1920px;
+    height: 1080px;
+    background: url('img/bg.jpg') no-repeat;
+    /* background: url('img/bigbg.jpg') no-repeat; */
+    /* transform: scaleX(0.75); */
+    transform-origin: left top;
+  }
+  .box{
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+  .title{
+    position: relative;
+    text-align: center;
+    height: 120px;
+  }
+  .title img{
+    position: absolute;
+  }
+  .title img:first-of-type{
+    top: 21px;
+    left: 750px;
+  }
+  .title img:nth-of-type(2){
+    top: 0px;
+    left: 0;
+  }
+  .title img:nth-of-type(3){
+    top: 60px;
+    left: 600px;
+  }
+  .title img:nth-of-type(4){
+    top: 80px;
+    left: 640px;
+  }
+  .title .light{
+    animation: light 1.5s infinite;
+  }
+  @keyframes light{
+    form {opacity: 1;}
+    to {opacity: 0;}
+  }
+  .foot{
+    position: absolute;
+    bottom: 0px;
+    display: none;
+  }
+  .foot>.status{
+    position: absolute;
+    top: 50px;
+    left: 700px;
+    color: #fff;
+  }
+  .foot>.status>span{
+    color: aqua;
+    margin-right: 20px;
+  }
+  .foot>.status>img{
+    vertical-align: middle;
+  }
+
+  .center{
+    position: relative;
+    height: 500px;
+    width: 100%;
+  }
+  .center>div{
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform-style: preserve-3d;
+  }
+  .center>.line-box hr{
+    height:1px;
+    border:none;
+    border-top:2px dashed #c10000;
+  }
+  .center>.line-box>hr:nth-child(1){
+    transform: translate(555px,113px) rotateZ(30deg);
+    width: 200px;
+  }
+  .center>.line-box>hr:nth-child(2){
+    transform: translate(555px,200px) rotateZ(-30deg);
+    width: 200px;
+  }
+  .center>.line-box>hr:nth-child(3){
+    transform: translate(407px,75px) rotateZ(-30deg);
+    width: 137px;
+  }
+  .center>.line-box>.h-qiu{
+    position: absolute;
+    display: inline-block;
+    top: -10px;
+    left: -10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-image: -webkit-radial-gradient(50% 50% , #0cf1ee, rgb(82, 94, 95));
+    transform: translate(615px,240px);
+    animation: hqiu 2s infinite;
+  }
+  @keyframes hqiu{
+    0%{ transform: translate(615px,240px); }
+    25%{ transform: translate(735px,170px); }
+    75%{ transform: translate(565px,72px); }
+    100%{ transform: translate(490px,112px); }
+  }
+
+  .center>.img-box>span:nth-child(1){
+    display: inline-block;
+    transform: translate(262px,113px);
+  }
+  .center>.img-box>img:nth-child(2){
+    transform: translate(244px,171px);
+  }
+  .center>.img-box>img:nth-child(3){
+    transform: translate(78px,328px);
+  }
+  .center>.img-box>img:nth-child(4){
+    transform: translate(101px,283px);
+  }
+  .center>.img-box>img:nth-child(5){
+    transform: translate(57px,411px);
+  }
+  .center>.img-box>img:nth-child(6){
+    transform: translate(-37px,199px);
+  }
+  .center>.img-box>img:nth-child(7){
+    transform: translate(-45px,259px);
+  }
+  .center>.img-box>img:nth-child(8){
+    transform: translate(-30px,318px);
+  }
+  .center>.img-box>img:nth-child(9){
+    transform: translate(-148px,200px);
+  }
+  .center>.img-box>img:nth-child(10){
+    transform: translate(57px,411px);
+  }
+  .center>.right-box>img:nth-child(1){
+    right: 0;
+  }
+</style>
+<body>
+  <div class="box">
+    <div class="title">
+      <img src="img/top1.png" alt="">
+      <img src="img/top2.png" alt="">
+      <img class='light' src="img/top3.png" alt=""><div></div>
+      <img src="img/top4.png" alt="">
+    </div>
+    <div class="center">
+      <div class="line-box">
+        <hr style="border-color: #c10000;"/>
+        <hr style="border-color: #c10000;" />
+        <hr style="border-color: #c10000;" />
+        <span class="h-qiu"></span>
+      </div>
+      <div class="img-box">
+        <span><img src="img/shenqing.png" alt=""></span>
+        
+        <img src="img/little_block.png" alt="">
+        <img src="img/little_block.png" alt="">
+        <img src="img/shenhe.png" alt="">
+        <img src="img/shenhe.png" alt="">
+        <img src="img/little_block.png" alt="">
+        <img src="img/little_block.png" alt="">
+        <img src="img/little_block.png" alt="">
+        <img src="img/banjie.png" alt="">
+      </div>
+      <div class="right-box">
+        <!-- <img src="img/right_title_box.png" alt=""> -->
+      </div>
+      
+    </div>
+
+
+    <div class="foot">
+      <img src="img/foot1.png" alt="">
+      <span class="status">
+        运行状态：<span>正常</span> 
+        <img src="img/foot2.png" alt="">
+      </span> 
+    </div> 
+    
+
+  </div>
+  
+  
+</body>
+</html>
