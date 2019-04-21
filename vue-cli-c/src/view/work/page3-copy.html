@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>page3</title>
+  <link rel="stylesheet" href="css/center.css">
+</head>
+
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  html{
+    width: 100%;
+    height: 100%;
+  }
+  body{
+    width: 1920px;
+    /* height: 1080px; */
+    background: url('img/bg.jpg') no-repeat;
+    background: url('img/bigbg.jpg') no-repeat;
+    background-size: 100%;
+    transform-origin: left top;
+  }
+  .box{
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+  .title{
+    position: relative;
+    text-align: center;
+    height: 120px;
+  }
+  .title img{
+    position: absolute;
+  }
+  .title img:first-of-type{
+    top: 21px;
+    left: 750px;
+  }
+  .title img:nth-of-type(2){
+    top: 0px;
+    left: 0;
+  }
+  .title img:nth-of-type(3){
+    top: 60px;
+    left: 600px;
+  }
+  .title img:nth-of-type(4){
+    top: 80px;
+    left: 640px;
+  }
+  .title .light{
+    animation: light 1.5s infinite;
+  }
+  @keyframes light{
+    form {opacity: 1;}
+    to {opacity: 0;}
+  }
+  .foot{
+    position: absolute;
+    bottom: 0px;
+    display: none;
+  }
+  .foot>.status{
+    position: absolute;
+    top: 50px;
+    left: 700px;
+    color: #fff;
+  }
+  .foot>.status>span{
+    color: aqua;
+    margin-right: 20px;
+  }
+  .foot>.status>img{
+    vertical-align: middle;
+  }
+
+  
+  
+</style>
+<body>
+  <div class="box">
+    <div class="title">
+      <img src="img/top1.png" alt="">
+      <img src="img/top2.png" alt="">
+      <img class='light' src="img/top3.png" alt=""><div></div>
+      <img src="img/top4.png" alt="">
+    </div>
+    <div class="center">
+      <div class="line-box">
+        <hr style="border-color: #c10000;"/>
+        <hr style="border-color: #c10000;" />
+        <hr style="border-color: #c10000;" />
+        
+      </div>
+      
+      <div class="qiu-box">
+        <span class="h-qiu"></span>
+      </div>
+
+      <div class="jiantou-box">
+        <img src="img/jiantou_red.png" alt="">
+        <img src="img/jiantou_red.png" alt="">
+        <img src="img/jiantou_red.png" alt="">
+        <img src="img/jiantou_aque.png" alt="">
+        <img src="img/jiantou_aque.png" alt="">
+        <img src="img/jiantou_aque.png" alt="">
+        <img src="img/jiantou_green.png" alt="">
+        <img src="img/jiantou_pink.png" alt="">
+        <img src="img/jiantou_pink.png" alt="">
+      </div>
+      <div class="img-box">
+        <span>
+          <img src="img/shenqing.png" alt="">
+          <img src="img/shenqing_icon.png" alt="">
+          <img src="img/shenqing_light.png" alt="">
+        </span>
+        <span>
+          <img src="img/little_block.png" alt="">
+        </span>
+        <span><img src="img/little_block.png" alt=""></span>
+        <span><img src="img/shenhe.png" alt=""></span>
+        <span><img src="img/little_block.png" alt=""></span>
+        <span><img src="img/little_block.png" alt=""></span>
+        <span><img src="img/little_block.png" alt=""></span>
+        <span><img src="img/banjie.png" alt=""></span>
+        <span><img src="img/title_1.png" alt=""></span>
+        <!-- 调度信息总览 .center>.img-box>span:nth-child(10)-->
+        <span>
+          <img src="img/diaodu_1.png" alt="">
+          <img src="img/title_2.png" alt="">
+          <span>
+            <img src="img/diaodu_2.png" alt="">
+          </span>
+          <span>
+            <img src="img/diaodu_3.png" alt="">
+          </span>
+          <span>
+            <img src="img/diaodu_3.png" alt="">
+          </span>
+          <span>
+            <img src="img/diaodu_3.png" alt="">
+          </span>
+          <span>
+            <img src="img/diaodu_3.png" alt="">
+          </span>
+          <span>
+            <img src="img/diaodu_4.png" alt="">
+          </span>
+        </span>
+        
+      </div>
+      <div class="right-box">
+        <!-- <img src="img/right_title_box.png" alt=""> -->
+      </div>
+    </div>
+
+
+    <div class="foot">
+      <img src="img/foot1.png" alt="">
+      <span class="status">
+        运行状态：<span>正常</span> 
+        <img src="img/foot2.png" alt="">
+      </span> 
+    </div> 
+    
+
+  </div>
+  
+  <script>
+    var domBody = document.getElementsByTagName("body")[0];
+    var timer = false;
+    function fit(){
+      let rate = document.documentElement.clientWidth / 1920; 
+      domBody.style.transformOrigin = 'left top';
+      domBody.style.transform = 'scale(' + rate + ',' + rate + ')';
+    }
+    fit();
+    window.onresize = function(){
+      debounce(fit);
+    }
+    // 防抖
+    function debounce(fn) {  
+      clearTimeout(timer);
+      timer = setTimeout(function(){
+        fit();
+      }, 300);
+    }
+    </script>
+</body>
+</html>
