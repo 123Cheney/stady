@@ -2,9 +2,13 @@
   form {transform: translateY(200px); opacity: 0;}
   to {transform: translateY(0px); opacity: 1;}
 }
-@keyframes diaoduLine{
+@keyframes opacityToggel{
   form { opacity: 0; }
   to { opacity: 1; }
+}
+@keyframes light{
+  form {opacity: 1;}
+  to {opacity: 0;}
 }
 @keyframes qiu1{
   0%{ left: 598px; top: 240px; }
@@ -70,3 +74,15 @@
   100% { transform: translateY(0px);opacity: 0;}
 }
 
+
+.center>.qiu-box>.h-qiu,
+.center>.line-box>hr{
+  opacity: 0;
+  animation: opacityToggel 1s 2s 1;
+  animation-fill-mode: forwards;
+}
+.center>.jiantou-box>img{
+  opacity: 0;
+  animation: opacityToggel 1s 2.5s 1;
+  animation-fill-mode: forwards;
+}
