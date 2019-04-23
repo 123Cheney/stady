@@ -301,72 +301,47 @@
       </span> 
     </div> 
 
-    <div class="popup">
+    <div class="popup" id="popup">
       <div class="main">
+        <div id='del1'></div>
         <div class="left" id='left'>
-          <p>资源申请部门排序</p>
-          <div class="order-box">
-            <p>
-              <span>市场监督管理局</span>
-              <span class="bar"><span class="inside1"></span></span>
-            </p>
-            <p>
-              <span>交通运输厅</span>
-              <span class="bar"><span class="inside2"></span></span>
-            </p>
-            <p>
-              <span>公安厅</span>
-              <span class="bar"><span class="inside3"></span></span>
-            </p>
-            <p>
-              <span>卫计委</span>
-              <span class="bar"><span class="inside4"></span></span>
-            </p>
-            <p>
-              <span>人社厅</span>
-              <span class="bar"><span class="inside5"></span></span>
-            </p>
-          </div>
-          <p>资源提供部门排行</p>
-          <div class="order-box order-box2">
-            <p>
-              <span>市场监督管理局</span>
-              <span class="bar"><span class="inside2"></span></span>
-            </p>
-            <p>
-              <span>交通运输厅</span>
-              <span class="bar"><span class="inside1"></span></span>
-            </span></p>
-            <p>
-              <span>公安厅</span>
-              <span class="bar"><span class="inside3"></span></span>
-            </p>
-            <p>
-              <span>卫计委</span>
-              <span class="bar"><span class="inside5"></span></span>
-            </p>
-            <p>
-              <span>人社厅</span>
-              <span class="bar"><span class="inside4"></span></span>
-            </p>
-          </div>
+          <p id="top-p"></p>
+          <div class="order-box"></div>
+          <p id="foot-p"></p>
+          <div class="order-box order-box2"></div>
         </div>
-        <div class="right">
+        <div class="right" id="right">
           <div class="circular"></div>
-          <div class="table">
-            <table>
-              <tr>
-                <th>序号</th>
-                <th>资源名称</th>
-                <th>提供部门</th>
-                <th>申请部门</th>
-                <th>操作</th>
-              </tr>
-            </table>
+          <div class="tabel" style="color:white">
+            <div class="thead">
+              <span>序号</span>
+              <span>资源名称</span>
+              <span>审核状态</span>
+              <span>提供部门</span>
+              <span>申请部门</span>
+              <span>操作</span>
+            </div>
+            <div class="tbody"></div>
           </div>
         </div>
       </div>
-      <div class="side"></div>
+      <div class="side">
+        <div id='del2'></div>
+        <p class="side-top">资源详情</p>
+        <div class="side-name">单位企业名称查询</div>
+        <div class='side-content'>
+          <p><span>资源提供部门：</span><span id="depart1">单个企业社会信用代码验证</span></p>
+          <p><span>资源申请部门：</span><span id="depart2">单个企业社会信用代码验证</span></p>
+          <p><span>联系人：</span><span>刘宝瑞</span></p>
+          <p><span>联系电话：</span><span>13333298743</span></p>
+          <p><span>服务接口调用峰值：</span><span>1000次/天</span></p>
+          <p><span>服务接口使用期限：</span><span>365</span></p>
+          <p><span>服务接口使用时间范围：</span><span></span>2019-01-03至2020-01-03</span></p>
+          <p><span>使用流量限制：</span><span>M/S</span></p>
+          <p><span>使用系统：</span><span>企业非法集资预警系统</span></p>
+        </div>
+        
+      </div>
     </div>
 
   </div>
