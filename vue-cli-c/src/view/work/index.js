@@ -31,7 +31,7 @@ tableData.map((item, index)=>{
                 <span>${item.apply}</span>
                 <span onclick="showDetail('${item.index}')">${item.option}</span>
               </p>`
-})
+});
 
 var popupBox = document.getElementById('popup');            //大弹窗
 var popupDetail = document.querySelector('.popup .side');   //弹窗详情
@@ -39,6 +39,8 @@ var orderBoxTop = document.querySelector('.order-box');     //上部排序盒子
 var topP = document.getElementById('top-p');                //上部排序盒子标题
 var orderBoxFoot = document.querySelector('.order-box2');   //下部排序盒子
 var footP = document.getElementById('foot-p');       //下部排序盒子标题
+var chart = document.querySelector('.chart');       //图表盒子
+var circleP = document.querySelectorAll('.circular p');       //半圆盒子的小标题
 
 orderBoxTop.innerHTML = orderTemp;
 orderBoxFoot.innerHTML = orderTemp;
@@ -66,24 +68,43 @@ function showPopup(item){
   orderBoxFoot.style.display = 'initial';
   topP.style.display = 'inherit';
   footP.style.display = 'inherit';
+  chart.style.display = 'none';
+  document.querySelector('.circular>span').style.display = 'initial';
   switch(item){
     case 1:
       topP.innerText = '资源申请部门排序';
       footP.innerHTML = '资源提供部门排行';
+      circleP[0].innerText = '已申请资源总次数';
+      circleP[1].innerText = '资源总数';
+      circleP[2].innerText = '半年新增资源数';
+      circleP[3].innerText = '当月新增资源数';
       break;
     case 2:
       topP.innerHTML = '待审核资源提供部门排序';
       footP.innerHTML = '已审核资源提供部门排行';
+      circleP[0].innerText = '待审核资源申请数';
+      circleP[1].innerText = '已审核资源申请数';
+      circleP[2].innerText = '未同意资源申请数';
+      circleP[3].innerText = '同意资源申请数';
       break;
     case 3:
       orderBoxTop.style.display = 'none';
       orderBoxFoot.style.display = 'none';
       topP.style.display = 'none';
       footP.style.display = 'none';
+      chart.style.display = 'flex';
+      document.querySelector('.circular>span').style.display = 'none'
+      circleP[1].innerText = '已审核资源申请数';
+      circleP[2].innerText = '待反馈资源总数';
+      circleP[3].innerText = '已反馈APIKEY资源总数';
       break;
     case 4:
       topP.innerHTML = '已办结资源申请部门排序';
       footP.innerHTML = '已办结资源提供部门排序';
+      circleP[0].innerText = '审核办结资源申请数';
+      circleP[1].innerText = '库表类共享资源';
+      circleP[2].innerText = '文件类共享资源';
+      circleP[3].innerText = '接口类共享资源';
       break;
   }
 }

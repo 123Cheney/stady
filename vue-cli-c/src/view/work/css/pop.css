@@ -109,10 +109,55 @@
   left: 70px;
   top: 20px;
 }
+.popup .main .left>.chart{
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  position: relative;
+  align-items: center;
+}
+.popup .main .left>.chart>span{
+  position: relative;
+  margin-top: 20px;
+}
+.popup .main .left>.chart>span>span{
+  position: absolute;
+  left: 44px;
+  top: 50px;
+  font-size: 20px;
+}
+.popup .main .left>.chart>span>p{
+  margin-top: 8px;
+}
 
 .popup .main .right .circular{
   height: 140px;
-  background: #333;
+  padding: 14px 0px 0 20px;
+  box-sizing: border-box;
+  justify-content: space-around;
+  display: flex;
+}
+.popup .main .right .circular>span{
+  position: relative;
+  display: inline-block;
+  /* margin-left: 17px; */
+  color: #ebeff0;
+  width: 125px;
+  height: 125px;
+}
+.popup .main .right .circular>span>span{
+  position: absolute;
+  top: 45px;
+  left: 32px;
+  font-size: 22px;
+  font-family: 'zhanghaishan';
+}
+.popup .main .right .circular>span>p{
+  position: absolute;
+  text-align: center;
+  width: 90px;
+  left: 12px;
+  letter-spacing: -2px;
 }
 .popup .main .right .tabel{
   padding-left: 15px;

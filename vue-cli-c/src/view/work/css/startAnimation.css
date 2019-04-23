@@ -11,42 +11,42 @@
   to {opacity: 0;}
 }
 @keyframes qiu1{
-  0%{ left: 598px; top: 240px;}
-  25%{ left: 730px; top: 160px; }
-  75%{ left: 560px; top: 66px; }
-  100%{ left: 470px; top: 114px;}
+  0%{ left: 598px; top: 240px; opacity: 1;}
+  25%{ left: 730px; top: 160px; opacity: 1;}
+  75%{ left: 560px; top: 66px; opacity: 1;}
+  100%{ left: 470px; top: 114px;opacity: 0;}
 }
 @keyframes qiu2{
-  0%{ left: 400px; top: 389px; }
-  65%{ left: 223px; top: 287px; }
-  100%{ left: 290px; top: 247px; }
+  0%{ left: 400px; top: 389px; opacity: 1;}
+  65%{ left: 223px; top: 287px; opacity: 1;}
+  100%{ left: 290px; top: 247px; opacity: 0;}
 }
 @keyframes qiu3{
-  0%{ left: 215px; top: 257px; }
-  25%{ left: 127px; top: 310px; }
-  75%{ left: 638px; top: 618px; }
-  100%{ left: 759px; top: 547px; }
+  0%{ left: 215px; top: 257px; opacity: 1;}
+  25%{ left: 127px; top: 310px; opacity: 1;}
+  75%{ left: 638px; top: 618px; opacity: 1;}
+  100%{ left: 759px; top: 547px; opacity: 0;}
 }
 @keyframes qiu4{
-  0%{ left: 540px; top: 476px; }
-  65%{ left: 694px; top: 562px; }
-  100%{ left: 766px; top: 524px; }
+  0%{ left: 540px; top: 476px; opacity: 1;}
+  65%{ left: 694px; top: 562px; opacity: 1;}
+  100%{ left: 766px; top: 524px; opacity: 0;}
 }
 @keyframes qiu5{
-  0%{ left: 970px; top: 427px; }
-  35%{ left: 997px; top: 411px; }
-  75%{ left: 1100px; top: 466px; }
-  100%{ left: 1125px; top: 456px; }
+  0%{ left: 970px; top: 427px; opacity: 1;}
+  35%{ left: 997px; top: 411px; opacity: 1;}
+  75%{ left: 1100px; top: 466px; opacity: 1;}
+  100%{ left: 1125px; top: 456px; opacity: 0;}
 }
 @keyframes qiu6{
-  0%{ left: 1015px; top: 270px; }
-  75%{ left: 1118px; top: 210px; }
-  100%{ left: 1138px; top: 217px; }
+  0%{ left: 1015px; top: 270px; opacity: 1;}
+  75%{ left: 1118px; top: 210px; opacity: 1;}
+  100%{ left: 1138px; top: 217px; opacity: 0;}
 }
 @keyframes qiu7{
-  0%{ left: 1225px; top: 397px; }
-  75%{ left: 1320px; top: 338px; }
-  100%{ left: 1300px; top: 323px; }
+  0%{ left: 1225px; top: 397px; opacity: 1;}
+  75%{ left: 1320px; top: 338px; opacity: 1;}
+  100%{ left: 1300px; top: 323px; opacity: 0;}
 }
 @keyframes icon1 {
   0%{ transform: translateY(0); opacity: 1;}
@@ -73,12 +73,32 @@
   50% { transform: translateY(-30px);opacity: 1;}
   100% { transform: translateY(0px);opacity: 0;}
 }
+@keyframes bigdot1{
+  0% { transform: translateX(0px) translateY(0px);opacity: 1;}
+  100% { transform: translateX(44px) translateY(23px)}
+}
+@keyframes bigdot2{
+  0% { transform: translateX(0px) translateY(0px);opacity: 1;}
+  100% { transform: translateX(22px) translateY(15px)}
+}
+@keyframes bigdot3{
+  0% { transform: translateX(0px) translateY(0px);opacity: 1;}
+  100% {transform: translateX(54px) translateY(30px);}
+}
+@keyframes bigdot4{
+  0% { transform: translateX(0px) translateY(0px);opacity: 1;}
+  100% { transform: translateX(60px) translateY(-35px);}
+}
+@keyframes bigdot5{
+  0% { transform: translateX(0px) translateY(0px);opacity: 1;}
+  100% { transform: translateX(60px) translateY(-33px);}
+}
 
 
-.center>.qiu-box>.h-qiu,
+/* .center>.qiu-box>.h-qiu, */
 .center>.line-box>hr{
-  /* opacity: 0; */
-  /* animation: opacityToggel 1s 2s 1; */
+  opacity: 0;
+  animation: opacityToggel 1s 2s 1;
   animation-fill-mode: forwards;
 }
 .center>.jiantou-box>img{
