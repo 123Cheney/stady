@@ -5,84 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>page3</title>
+  <link rel="stylesheet" href="css/index.css">
   <link rel="stylesheet" href="css/center.css">
   <link rel="stylesheet" href="css/startAnimation.css">
   <link rel="stylesheet" href="css/pop.css">
 </head>
 
-<style>
-  *{
-    margin: 0;
-    padding: 0;
-  }
-  html{
-    width: 100%;
-    height: 100%;
-    background: #999;
-  }
-  body{
-    width: 1920px;
-    height: 1080px;
-    background: url('img/bg.jpg') no-repeat;
-    /* background: url('反馈.jpg') no-repeat; */
-    /* background: url('img/bigbg.jpg') no-repeat; */
-    background-size: 100%;
-    transform-origin: left top;
-  }
-  .box{
-    position: relative;
-    height: 100%;
-    width: 100%;
-  }
-  .title{
-    position: relative;
-    text-align: center;
-    height: 120px;
-  }
-  .title img{
-    position: absolute;
-  }
-  .title img:first-of-type{
-    top: 21px;
-    left: 750px;
-  }
-  .title img:nth-of-type(2){
-    top: 0px;
-    left: 0;
-  }
-  .title img:nth-of-type(3){
-    top: 60px;
-    left: 600px;
-  }
-  .title img:nth-of-type(4){
-    top: 80px;
-    left: 640px;
-  }
-  .title .light{
-    animation: light 1.5s infinite;
-  }
-  .foot{
-    position: absolute;
-    bottom: 0px;
-    display: none;
-  }
-  .foot>.status{
-    position: absolute;
-    top: 50px;
-    left: 700px;
-    color: #fff;
-  }
-  .foot>.status>span{
-    color: aqua;
-    margin-right: 20px;
-  }
-  .foot>.status>img{
-    vertical-align: middle;
-  }
-
-  
-  
-</style>
 <body>
   <div class="box">
     <div class="title">
@@ -287,8 +215,118 @@
         </span>
         
       </div>
-      <div class="right-box">
-        <!-- <img src="img/right_title_box.png" alt=""> -->
+      <div class="right-wrap">
+        <div class="right-first-wrap">
+          <p class="right-title">接口调用数量</p>
+          <div class="right-first-content">
+            <p class="right-tab">
+              <span>接口名称</span>
+              <span>状态</span>
+              <span>所属单位</span>
+              <span>调用条数（条）</span>
+            </p>
+            <div class='scroll-content'>
+              <div class="scroll-box">
+                <p>
+                  <span>全省教育厅高考录取教育厅高考录</span>
+                  <span></span>
+                  <span>所属单位</span>
+                  <span>调用条数（条）</span>
+                </p>
+                <p>
+                  <span>全省教育厅高考录取教育厅高考录</span>
+                  <span></span>
+                  <span>所属单位</span>
+                  <span>调用条数（条）</span>
+                </p>
+                <p>
+                  <span>全省教育厅高考录取教育厅高考录</span>
+                  <span></span>
+                  <span>所属单位</span>
+                  <span>调用条数（条）</span>
+                </p>
+                <p>
+                  <span>全省教育厅高考录取教育厅高考录</span>
+                  <span></span>
+                  <span>所属单位</span>
+                  <span>调用条数（条）</span>
+                </p>
+                <p>
+                  <span>全省教育厅高考录取教育厅高考录</span>
+                  <span></span>
+                  <span>所属单位</span>
+                  <span>调用条数（条）</span>
+                </p>
+                <p>
+                  <span>全省教育厅高考录取教育厅高考录</span>
+                  <span></span>
+                  <span>所属单位</span>
+                  <span>调用条数（条）</span>
+                </p>
+              </div>
+              <!-- <div class="scroll-box" id='copy-scroll'></div> -->
+            </div>
+          </div>
+        </div>
+        <div class="right-second-wrap">
+          <p class="right-title">数据共享交换</p>
+          <div class="right-sceond-content">
+            <div>
+              <p class="sub-title">基础库共享交换量（次）</p>
+              <ul>
+                <li>
+                  <label>397373</label>
+                  <span>累计</span>
+                </li>
+                <li>
+                  <label>103259</label>
+                  <span>年度</span>
+                </li>
+                <li>
+                  <label>1135</label>
+                  <span>今日</span>
+                </li>
+              </ul>
+            </div>
+    
+            <div>
+              <p class="sub-title">主题库共享交换量（次）</p>
+              <ul>
+                <li>
+                  <label>397373</label>
+                  <span>累计</span>
+                </li>
+                <li>
+                  <label>103259</label>
+                  <span>年度</span>
+                </li>
+                <li>
+                  <label>1135</label>
+                  <span>今日</span>
+                </li>
+              </ul>
+            </div>
+    
+            <div>
+              <p class="sub-title">各部门库共享交换量（次）</p>
+              <ul>
+                <li>
+                  <label>397373</label>
+                  <span>累计</span>
+                </li>
+                <li>
+                  <label>103259</label>
+                  <span>年度</span>
+                </li>
+                <li>
+                  <label>1135</label>
+                  <span>今日</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+    
+        </div>
       </div>
     </div>
 
@@ -298,6 +336,7 @@
       <span class="status">
         运行状态：<span>正常</span> 
         <img src="img/foot2.png" alt="">
+        <marquee behavior="scroll" scrollamount="20">数据更新成功,更新时间</marquee>
       </span> 
     </div> 
 
@@ -340,7 +379,6 @@
           <p><span>使用流量限制：</span><span>M/S</span></p>
           <p><span>使用系统：</span><span>企业非法集资预警系统</span></p>
         </div>
-        
       </div>
     </div>
 

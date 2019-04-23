@@ -294,7 +294,8 @@
 /*img-box  */
 .center>.img-box>span,
 .center>.img-box>span>img,
-.center>.img-box>span>.dot{
+.center>.img-box>span>.dot,
+.center>.img-box>span>.big-dot{
   position: absolute;
 }
 .center>.img-box>span>.dot{
@@ -302,6 +303,13 @@
   height: 6px;
   border-radius: 50%;
   display: inline-block;
+}
+.center>.img-box>span>.big-dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  background: red;
 }
 
 .center>.img-box>span:nth-child(1){
@@ -547,7 +555,7 @@
   left: 63px;
   transform: translateY(120px);
   opacity: 0;
-  animation: diaodu 2s 1;
+  animation: diaodu 1s 0.5s 1;
   animation-fill-mode: forwards;
 }
 .center>.img-box>span:nth-child(11)>span,
@@ -578,8 +586,9 @@
 }
 .center>.img-box>span:nth-child(11)>span:nth-child(3)>p:nth-of-type(1){
   color: #75a5f3;
-  left: 39px;
+  left: 30px;
   top: 10px;
+  font-family: 'zhanghaishan';
 }
 .center>.img-box>span:nth-child(11)>span:nth-child(3)>p:nth-of-type(2){
   color: #357bec;
@@ -598,6 +607,7 @@
   color: #69cca3;
   left: 44px;
   top: 10px;
+  font-family: 'zhanghaishan';
 }
 .center>.img-box>span:nth-child(11)>span:nth-child(4)>p:nth-of-type(2){
   color: #0da062;
@@ -616,6 +626,7 @@
   color: #4ff1ae;
   left: 44px;
   top: 10px;
+  font-family: 'zhanghaishan';
 }
 .center>.img-box>span:nth-child(11)>span:nth-child(5)>p:nth-of-type(2){
   color: #5be2a9;
@@ -634,6 +645,7 @@
   color: #4ff1ae;
   left: 48px;
   top: 10px;
+  font-family: 'zhanghaishan';
 }
 .center>.img-box>span:nth-child(11)>span:nth-child(6)>p:nth-of-type(2){
   color: #5be2a9;
@@ -652,6 +664,7 @@
   color: #4ff1ae;
   left: 48px;
   top: 10px;
+  font-family: 'zhanghaishan';
 }
 .center>.img-box>span:nth-child(11)>span:nth-child(7)>p:nth-of-type(2){
   color: #5be2a9;
@@ -670,6 +683,7 @@
   color: #d76469;
   left: 48px;
   top: 10px;
+  font-family: 'zhanghaishan';
 }
 .center>.img-box>span:nth-child(11)>span:nth-child(8)>p:nth-of-type(2){
   color: #d76469;
