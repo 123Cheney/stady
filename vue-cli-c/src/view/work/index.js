@@ -134,3 +134,24 @@ function numAdd(dom,max){
     i=i+3134;
   },50)
 }
+
+// 列表lunbo
+var scrollContent = document.querySelector('.scroll-content');
+var scrollBox = document.querySelector('.scroll-box');
+var scrollBoxCopy = document.querySelector('#copy-scroll');
+scrollBoxCopy.innerHTML = scrollBox.innerHTML;
+  function scrollUp() {
+    if (scrollContent.scrollTop == 208) {
+      scrollContent.scrollTop = 0;
+    } else {
+      scrollContent.scrollTop++
+    }
+  }
+  var time = 10;
+  var mytimer = setInterval(scrollUp, time);
+  scrollContent.onmouseover = function() {
+    clearInterval(mytimer);
+  }
+  scrollContent.onmouseout = function() {
+    mytimer = setInterval(scrollUp, time);
+  }

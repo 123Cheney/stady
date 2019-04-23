@@ -139,12 +139,12 @@ body{
   border-radius: 50%;
   background: #00889b;
   position: absolute;
-  top: 32px;
-  left: 0;
+  top: 39px;
+  left: -3px;
 }
 .right-first-content .scroll-content{
   width: 445px;
-  height: 222px;
+  height: 210px;
   overflow: hidden;
   padding-top: 8px;
 }
