@@ -35,6 +35,7 @@ tableData.map((item, index)=>{
 
 var popupBox = document.getElementById('popup');            //大弹窗
 var popupDetail = document.querySelector('.popup .side');   //弹窗详情
+var signImg = document.querySelector('#popup .side .sign'); 
 var orderBoxTop = document.querySelector('.order-box');     //上部排序盒子
 var topP = document.getElementById('top-p');                //上部排序盒子标题
 var orderBoxFoot = document.querySelector('.order-box2');   //下部排序盒子
@@ -70,6 +71,7 @@ function showPopup(item){
   orderBoxFoot.style.display = 'initial';
   topP.style.display = 'inherit';
   footP.style.display = 'inherit';
+  signImg.style.display='initial';
   chart.style.display = 'none';
   document.querySelector('.circular>span').style.display = 'initial';
   switch(item){
@@ -80,8 +82,10 @@ function showPopup(item){
       circleP[1].innerText = '资源总数';
       circleP[2].innerText = '半年新增资源数';
       circleP[3].innerText = '当月新增资源数';
+      signImg.style.display='none';
       break;
     case 2:
+    signImg.src = 'img/yi3.png';
       topP.innerHTML = '待审核资源提供部门排序';
       footP.innerHTML = '已审核资源提供部门排行';
       circleP[0].innerText = '待审核资源申请数';
@@ -90,6 +94,7 @@ function showPopup(item){
       circleP[3].innerText = '同意资源申请数';
       break;
     case 3:
+      signImg.src = 'img/yi1.png';
       orderBoxTop.style.display = 'none';
       orderBoxFoot.style.display = 'none';
       topP.style.display = 'none';
@@ -104,6 +109,7 @@ function showPopup(item){
 			draw(51,canvas[2],3);
       break;
     case 4:
+      signImg.src = 'img/yi2.png';
       topP.innerHTML = '已办结资源申请部门排序';
       footP.innerHTML = '已办结资源提供部门排序';
       circleP[0].innerText = '审核办结资源申请数';

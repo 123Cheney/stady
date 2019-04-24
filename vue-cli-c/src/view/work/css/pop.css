@@ -209,6 +209,11 @@
   height: 550px;
   background: url('../img/pop_side_border.png') no-repeat;
 }
+.popup .side .sign{
+  left: 310px;
+  top: 50px;
+  position: absolute;
+}
 .popup .side #del2{
   position: absolute;
   cursor: pointer;
