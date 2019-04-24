@@ -154,13 +154,30 @@ body{
 }
 .right-first-content .scroll-box span:nth-child(2)::after{
   content: '';
-  color: #00fdfe;
-  width: 5px;
-  height: 5px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   display: inline-block;
-  background: #71f1f1;
-  box-shadow: 0 0 3px 3px #bfcdd4;
+}
+.right-first-content .scroll-box p:nth-child(1)>span:nth-child(2)::after{
+	background: #71f1f1;
+	box-shadow: 0 0 3px 1px #bfcdd4;
+}
+.right-first-content .scroll-box p:nth-child(2)>span:nth-child(2)::after{
+	background: yellow;
+	box-shadow: 0 0 3px 1px lawngreen;
+}
+.right-first-content .scroll-box p:nth-child(3)>span:nth-child(2)::after{
+	background: #71f1f1;
+	box-shadow: 0 0 3px 1px lawngreen;
+}
+.right-first-content .scroll-box p:nth-child(4)>span:nth-child(2)::after{
+	background: red;
+	box-shadow: 0 0 3px 1px lightcoral;
+}
+.right-first-content .scroll-box p:nth-child(5)>span:nth-child(2)::after{
+	background: limegreen;
+	box-shadow: 0 0 3px 1px lavender;
 }
 .right-first-content p{
   padding: 7px 5px;

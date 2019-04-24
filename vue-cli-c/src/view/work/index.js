@@ -42,6 +42,8 @@ var footP = document.getElementById('foot-p');       //下部排序盒子标题
 var chart = document.querySelector('.chart');       //图表盒子
 var circleP = document.querySelectorAll('.circular p');       //半圆盒子的小标题
 
+var canvas = document.querySelectorAll('.canvas');   //canvas
+
 orderBoxTop.innerHTML = orderTemp;
 orderBoxFoot.innerHTML = orderTemp;
 
@@ -97,6 +99,9 @@ function showPopup(item){
       circleP[1].innerText = '已审核资源申请数';
       circleP[2].innerText = '待反馈资源总数';
       circleP[3].innerText = '已反馈APIKEY资源总数';
+			draw(30,canvas[0],1);
+			draw(75,canvas[1],2);
+			draw(51,canvas[2],3);
       break;
     case 4:
       topP.innerHTML = '已办结资源申请部门排序';
@@ -155,3 +160,64 @@ scrollBoxCopy.innerHTML = scrollBox.innerHTML;
   scrollContent.onmouseout = function() {
     mytimer = setInterval(scrollUp, time);
   }
+	
+// canvas 画图
+function draw(percent,canvas,sign) {
+  if (percent < 0 || percent > 100) {
+    return;
+  }
+	var canvas = canvas,
+			cxt = canvas.getContext('2d'),
+			cWidth = canvas.width,
+			cHeight = canvas.height,
+			baseColor = '#02072f',
+			textColor = '#fff',
+			PI = Math.PI,
+			sR = 1 / 2 * PI;
+  var coverColor = cxt.createLinearGradient(150, 0, 150, 150);
+  //添加颜色
+	if(sign==1){
+		coverColor.addColorStop(0, "#fe8900");
+		coverColor.addColorStop(0.5, "#ffbb00");
+		coverColor.addColorStop(1, "#f9cf82");
+	}else if(sign==2){
+		coverColor.addColorStop(0, "#00d8a9");
+		coverColor.addColorStop(0.5, "#03c852");
+		coverColor.addColorStop(1, "#00ffb0");
+	}else{
+		coverColor.addColorStop(0, "#ff0050");
+		coverColor.addColorStop(0.5, "#ff0052");
+		coverColor.addColorStop(1, "#ff9f7a");
+	}
+	
+  var finalRadian = sR + ((PI + (PI - sR) * 2) * percent / 100); // 红圈的终点弧度
+  var step = (PI + (PI - sR) * 2) / 100; // 一个1%对应的弧度大小
+  var text = 0; // 显示的数字
+  var timer = setInterval(function() {
+    cxt.clearRect(0, 0, cWidth, cHeight);
+    var endRadian = sR + text * step;
+    // 画灰色圆弧
+    drawCanvas(cWidth / 2, cHeight / 2, 55, sR, sR + (PI + (PI - sR) * 2), baseColor, 10);
+    // 画红色圆弧
+    drawCanvas(cWidth / 2, cHeight / 2, 55, sR, endRadian, coverColor, 10);
+    // 数字
+    cxt.fillStyle = textColor;
+    cxt.font = '24px PT Sans';
+    var textWidth = cxt.measureText(text + '%').width;
+    cxt.fillText(text + '%', cWidth / 2 - textWidth / 2, cHeight / 2 + 15);
+    text++;
+
+    if (endRadian.toFixed(2) >= finalRadian.toFixed(2)) {
+      clearInterval(timer);
+    }
+  }, 30);
+
+  function drawCanvas(x, y, r, sRadian, eRadian, color, lineWidth) {
+    cxt.beginPath();
+    cxt.lineCap = "round";
+    cxt.strokeStyle = color;
+    cxt.lineWidth = lineWidth;
+    cxt.arc(x, y, r, sRadian, eRadian, false);
+    cxt.stroke();
+  }
+}

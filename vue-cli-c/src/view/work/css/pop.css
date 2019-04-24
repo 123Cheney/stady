@@ -118,16 +118,6 @@
 }
 .popup .main .left>.chart>span{
   position: relative;
-  margin-top: 20px;
-}
-.popup .main .left>.chart>span>span{
-  position: absolute;
-  left: 44px;
-  top: 50px;
-  font-size: 20px;
-}
-.popup .main .left>.chart>span>p{
-  margin-top: 8px;
 }
 
 .popup .main .right .circular{
