@@ -2,6 +2,7 @@
   <div class="page">
     {{page1}}
     {{page1s}}
+    <div class="wa">this is the best wish for you</div>
   </div>
 </template>
 
@@ -37,9 +38,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 .page{
   height: 100%;
   overflow: auto;
+  font-family: 'zhanghaishan';
 }
+.wa{
+  font-family: 'ziti';
+  font-size: 36px;
+  }
 </style>
