@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>3</title>
+</head>
+<style type="text/css">
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
+	#can1 {
+		position: relative;
+		top: 100px;
+	}
+</style>
+
+<body>
+	<canvas id="can1" width="72px" height="60px"></canvas>
+	<canvas id="can2" width="72px" height="60px"></canvas>
+	<script type="text/javascript">
+		var dom1 = document.getElementById('can1');
+		var dom2 = document.getElementById('can2');
+		canvaImg(dom1, '有条件共享', '#59bc5b', '#1c4417', '#9adb83');
+		canvaImg(dom2, '不同意', '#d03c28', '#501209', '#ee5241');
+
+		function canvaImg(dom, txt, color1, color2, color3) {
+			var ctx = dom.getContext('2d');
+			ctx.beginPath();
+			ctx.lineWidth = 2;
+			ctx.strokeStyle = color1;
+			ctx.fillStyle = color2;
+			ctx.moveTo(2, 2);
+			ctx.lineTo(60, 2);
+			ctx.lineTo(70, 12);
+			ctx.lineTo(70, 22);
+			ctx.lineTo(10, 22);
+			ctx.lineTo(2, 12);
+			ctx.closePath();
+			ctx.stroke();
+			ctx.fill();
+
+			ctx.beginPath();
+			ctx.setLineDash([3, 3])
+			ctx.moveTo(37, 22);
+			ctx.lineTo(37, 60);
+			ctx.stroke();
+
+			ctx.beginPath();
+			ctx.fillStyle = color3;
+			// context.fillText(text,x,y,maxWidth);
+			ctx.textAlign = "center"; //文字居中,以坐标点位置为参照
+			ctx.fillText(txt, 36, 15, 68);
+		}
+	</script>
+</body>
+
+</html>

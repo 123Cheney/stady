@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <title>Canvas</title>
+</head>
+
+<body>
+  <canvas id="canvas" width="300" height="300"></canvas>
+
+  <script>
+    draw(66);
+
+    function draw(percent, sR) {
+      if (percent < 0 || percent > 100) {
+        return;
+      }
+      if (sR < Math.PI / 2 || sR >= 3 / 2 * Math.PI) {
+        return;
+      }
+
+      var canvas = document.querySelector('#canvas'),
+        cxt = canvas.getContext('2d'),
+        cWidth = canvas.width,
+        cHeight = canvas.height,
+        baseColor = '#e1e1e1',
+        textColor = '#fe4d43',
+        PI = Math.PI,
+        sR = sR || 1 / 2 * PI;
+      var coverColor = cxt.createLinearGradient(150, 0, 150, 150);
+      //添加颜色
+      coverColor.addColorStop(0, "#ff0050");
+      coverColor.addColorStop(0.5, "#ff0052");
+      coverColor.addColorStop(1, "#ff9f7a");
+      var finalRadian = sR + ((PI + (PI - sR) * 2) * percent / 100); // 红圈的终点弧度
+      var step = (PI + (PI - sR) * 2) / 100; // 一个1%对应的弧度大小
+      var text = 0; // 显示的数字
+      var timer = setInterval(function () {
+        cxt.clearRect(0, 0, cWidth, cHeight);
+        var endRadian = sR + text * step;
+        // 画灰色圆弧
+        drawCanvas(cWidth / 2, cHeight / 2, 80, sR, sR + (PI + (PI - sR) * 2), baseColor, 2);
+        // 画红色圆弧
+        drawCanvas(cWidth / 2, cHeight / 2, 80, sR, endRadian, coverColor, 2);
+
+        // 					// 数字
+        cxt.fillStyle = textColor;
+        cxt.font = '40px PT Sans';
+        var textWidth = cxt.measureText(text + '%').width;
+        cxt.fillText(text + '%', cWidth / 2 - textWidth / 2, cHeight / 2 + 15);
+        text++;
+        // 
+        if (endRadian.toFixed(2) >= finalRadian.toFixed(2)) {
+          clearInterval(timer);
+        }
+      }, 30);
+
+      function drawCanvas(x, y, r, sRadian, eRadian, color, lineWidth) {
+        cxt.beginPath();
+        cxt.lineCap = "round";
+        cxt.strokeStyle = color;
+        cxt.lineWidth = lineWidth;
+        cxt.arc(x, y, r, sRadian, eRadian, false);
+        cxt.stroke();
+      }
+    }
+  </script>
+</body>
+
+</html>

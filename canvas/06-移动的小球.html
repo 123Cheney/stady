@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>2</title>
+</head>
+<style type="text/css">
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  canvas {
+    border: dashed 2px #CCC;
+    margin-left: 20px;
+  }
+
+  body {
+    background: #323232;
+  }
+
+  #can2 {
+    /* border: none; */
+    padding: 2px;
+  }
+</style>
+
+<body>
+  <canvas id="can1" width="150px" height="150px"></canvas>
+  <canvas id="can2" width="80px" height="60px"></canvas>
+
+  <!-- closePath():回到原点 -->
+  <!-- canvas画布中没办法直接删除指定的内容，只能擦除区域的画布，重新从头绘制新的画面。 -->
+  <script type="text/javascript">
+    var can1 = document.getElementById('can1');
+    var ctx1 = can1.getContext('2d');
+    var num = 0;
+    ctx1.fillStyle = '#b8b8b8';
+
+    ctx1.fillRect(0, 0, 150, 150);
+
+    function move(num) {
+      ctx1.clearRect(0, 0, 150, 150);
+      ctx1.beginPath();
+      ctx1.lineWidth = 4; //线的宽度
+      ctx1.setLineDash([3, 3]); //绘制虚线
+      ctx1.arc(num, 10, 10, 0, 2 * Math.PI, 0);
+      ctx1.strokeStyle = '#8499f3';
+      ctx1.stroke(); //空心圆
+
+      // ctx1.fillStyle = '#8499f3';
+      // ctx1.fill();   //实心圆
+    }
+    var timer = setInterval(() => {
+      move(num);
+      if (num >= 140) {
+        clearInterval(timer);
+      } else {
+        num++;
+      }
+    }, 10);
+
+    var can2 = document.getElementById('can2');
+    var ctx2 = can2.getContext('2d');
+    var weiyi = 0;
+
+    function begin(item, scale) {
+      ctx2.clearRect(0, 0, 550, 60);
+      if (item) {
+
+        ctx2.save(); //暂存画布的当前状态
+        // ctx2.translate(40,40);
+        ctx2.scale(scale, scale);
+        // ctx2.rotate( 30 / 180 * Math.PI);  
+      }
+      ctx2.beginPath();
+      ctx2.setLineDash([]);
+      ctx2.lineWidth = 2;
+      ctx2.strokeStyle = '#59bc5b';
+      ctx2.fillStyle = '#1c4417';
+      ctx2.moveTo(2 + weiyi, 2);
+      ctx2.lineTo(60 + weiyi, 2);
+      ctx2.lineTo(70 + weiyi, 12);
+      ctx2.lineTo(70 + weiyi, 22);
+      ctx2.lineTo(10 + weiyi, 22);
+      ctx2.lineTo(2 + weiyi, 12);
+      ctx2.closePath();
+      ctx2.stroke();
+      ctx2.fill();
+
+      ctx2.beginPath();
+      ctx2.setLineDash([3, 3])
+      ctx2.moveTo(37 + weiyi, 22);
+      ctx2.lineTo(37 + weiyi, 60);
+      ctx2.stroke();
+
+      ctx2.beginPath();
+      ctx2.fillStyle = '#9adb83';
+      // context.fillText(text,x,y,maxWidth);
+      ctx2.textAlign = "center"; //文字居中,以坐标点位置为参照
+      ctx2.fillText('有条件共享', 36 + weiyi, 15, 68);
+      ctx2.restore(); //恢复画布的之前暂存的状态
+    }
+    // var timers = setInterval(()=>{
+    // 	if(weiyi==500){
+    // 		clearInterval(timers)
+    // 	}else{
+    begin()
+    // 	}
+    // 	weiyi++;
+    // },10);
+
+    // 鼠标事件
+    can2.onmouseenter = function (e) {
+      let i = 0;
+      let scale = 1;
+      let timer = setInterval(() => {
+        if (i >= 20) {
+          clearInterval(timer)
+        } else {
+          begin(true, scale);
+          scale = scale + 0.01;
+        }
+        i++;
+
+      }, 1)
+    }
+    can2.onmouseout = function (e) {
+      let i = 0;
+      let scale = 1.2;
+      let timer = setInterval(() => {
+        if (i >= 20) {
+          clearInterval(timer)
+        } else {
+          begin(true, scale);
+          scale = scale - 0.01;
+        }
+        i++;
+
+      }, 1)
+    }
+  </script>
+
+
+</body>
+
+</html>

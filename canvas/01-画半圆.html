@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Canvas</title>
+</head>
+<style type="text/css">
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    padding: 0;
+  }
+
+  canvas {
+    border: dashed 2px #CCC;
+    position: absolute;
+    left: 0;
+    background: url(number_bg.png);
+    background-size: 150px 150px;
+  }
+
+  /* #can2 {margin-left:50px;} */
+</style>
+
+<body>
+  <canvas id="can1" width="150px" height="150px"></canvas>
+  <canvas id="can2" width="150px" height="150px"></canvas>
+</body>
+<script type="text/javascript">
+  var num = Math.PI / 180;
+  var end = Math.PI;
+  var can1 = document.getElementById('can1');
+  var ctx = can1.getContext('2d');
+
+  function pageLoad(endAngle) {
+    ctx.clearRect(0, 0, 150, 150);
+    ctx.beginPath();
+    // ctx.lineCap="round"; //
+    // ctx.lineCap="butt";
+    ctx.lineCap = "square"; //线两端的样式
+    ctx.arc(70, 70, 60, Math.PI, endAngle, 0);
+    // 线性渐变 createLinearGradient(x0,y0,x1,y1）.参数表示坐标
+    var gradient = ctx.createLinearGradient(0, 0, 150, 0);
+    gradient.addColorStop("0", "magenta");
+    gradient.addColorStop("0.5", "blue");
+    gradient.addColorStop("1.0", "red");
+
+    // ctx.strokeStyle = 'red'; //正常颜色填充
+    ctx.strokeStyle = gradient; // 用渐变进行填充
+
+    ctx.lineWidth = 10;
+    ctx.stroke();
+    ctx.closePath();
+  }
+  var timer = setInterval(() => {
+    pageLoad(end);
+    if (end >= 2 * Math.PI) {
+      clearInterval(timer)
+    }
+    end = end + num
+    console.log(num)
+  }, 10)
+
+  var can2 = document.getElementById('can2');
+  var ctx2 = can2.getContext("2d");
+  ctx2.lineWidth = 10;
+  var num2 = 0,
+    num3 = 150;
+
+  function line(num) {
+    ctx2.clearRect(0, 0, 150, 150);
+    ctx2.moveTo(0, 0);
+    ctx2.lineTo(num2, num2);
+    ctx2.stroke();
+  }
+
+  function line1(num) {
+    ctx2.clearRect(0, 0, 150, 150);
+    ctx2.moveTo(150, 0);
+    ctx2.lineTo(num3, 150 - num3);
+    ctx2.stroke();
+  }
+  var timer2 = setInterval(() => {
+    line(num2)
+    if (num2 >= 150) {
+      clearInterval(timer2);
+      var timer3 = setInterval(() => {
+        line1(num3);
+        if (num3 <= 0) {
+          clearInterval(timer3);
+        } else {
+          num3--;
+        }
+      }, 10)
+    } else {
+      num2++;
+    }
+    console.log(num2)
+  }, 10)
+</script>
+
+</html>
