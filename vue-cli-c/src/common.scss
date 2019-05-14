@@ -1,7 +1,14 @@
-@font-face {
-  font-family: "ziti";
-  src: url('../src/assets/ziti/Akronim-Regular.ttf');
 
+
+@font-face {
+  font-family: 'ziti';
+  src: url('../src/assets/ziti/akronim-regular.eot');
+  src: url('../src/assets/ziti/akronim-regular.eot?#iefix') format('embedded-opentype'),
+       url('../src/assets/ziti/akronim-regular.woff') format('woff'),
+       url('../src/assets/ziti/akronim-regular.ttf') format('truetype'),
+       url('../src/assets/ziti/akronim-regular.svg#akronimregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
 .ivu-page {
