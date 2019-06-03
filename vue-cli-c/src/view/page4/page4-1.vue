@@ -35,7 +35,6 @@ export default {
 //            延时播放
 //            播放次数 (n, infinite)
 //            是否应该轮流反向播放动画(normal,alternate);
-// 我发现了css一个特别
 
 // sass变量
 
