@@ -3,22 +3,27 @@
     {{page1}}
     {{page1s}}
     <div class="wa">this is the best wish for you</div>
+    <div>{{ templateStr }}</div>
+    <pre v-highlight><code class="html">{{ templateStr }}</code></pre>
   </div>
 </template>
 
 <script>
+
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
   components: {},
   data() {
     return {
       page1: this.$store.state.page1,
+      templateStr: `<bar :bar="barData" :series="barDataSeries"></bar>`
     }
   },
   mounted() {
     // this.$store.dispatch('changeInfo','改变后的a')
     // this.changeA('mapActions')
-    this.changeInfo('changeInfo')
+    this.changeInfo('changeInfo');
+    hljs.registerLanguage('javascript', javascript);
   },
   methods: {
     // action的一个辅助函数，将组件的 methods 映射为 store.dispatch 调用

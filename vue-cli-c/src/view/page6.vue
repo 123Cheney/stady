@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <cardBox :cardData='cardData'></cardBox>
+    <cardBox :cardData='cardData' ref="child"></cardBox>
   </div>
 </template>
 
@@ -27,7 +27,10 @@ export default {
       ]
     };
   },
-  methods: {}
+  methods: {},
+  mounted(){
+    this.$refs.child.childMethod('ss')
+  }
 };
 </script>
 

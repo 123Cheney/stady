@@ -16,6 +16,7 @@
   "dependencies": {
     "echarts": "^4.2.1",
     "element-ui": "^2.6.2",
+    "highlight.js": "^9.15.8",
     "iview": "^3.3.0-rc.2",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",

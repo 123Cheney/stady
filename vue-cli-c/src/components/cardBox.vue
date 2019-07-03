@@ -65,6 +65,10 @@ export default {
           }
         }
       }
+    },
+    childMethod(i) {
+      console.log('父组件调用子组件的方法')
+      console.log(i)
     }
   },
   watch: {},
