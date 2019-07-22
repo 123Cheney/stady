@@ -50,8 +50,8 @@ export default {
           title:'舞台剧',
           icon:'ios-people',
           menuItem:[
-            {name:'4-1',title:'寻龙诀'},
-            {name:'4-2',title:'驯龙高手'},
+            {name:'4-1',title:'寻龙诀',to:'/page7'},
+            {name:'4-2',title:'驯龙高手',to:'/page8'},
           ]
         },
       ],

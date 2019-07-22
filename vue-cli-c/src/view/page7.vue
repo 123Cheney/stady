@@ -48,90 +48,50 @@ export default {
 
       var a = BABYLON.MeshBuilder.CreateCylinder("a", {  diameter:0.4, height: 0.6, sideOrientation: BABYLON.Mesh.DOUBLESIDE,tessellation: 96}, scene);
       var b = BABYLON.MeshBuilder.CreateCylinder("b", {  diameter:0.6, height: 0.5, sideOrientation: BABYLON.Mesh.DOUBLESIDE,tessellation: 96}, scene);
-      var c = BABYLON.MeshBuilder.CreateBox("c", {  width: 0.6, depth:0.6, height: 0.6, }, scene)
+      var c = BABYLON.MeshBuilder.CreateCylinder("c", {  diameter:0.6, height: 0.6, sideOrientation: BABYLON.Mesh.DOUBLESIDE,tessellation:4,}, scene)
+
+      // var c = BABYLON.MeshBuilder.CreateBox("c", {  height: 0.25, diameterTop: 0, diameterBottom: 0.8}, scene)
       // c.position.x = -0.5;
       // c.rotation.z = Math.PI/2
       // console.log(c)
-      a.position.x = 0.8;
-      b.position.x = 0.8;
-      c.position.x = -0.3;
+      a.position.x = 0.7;
+      b.position.x = 0.7;
+      c.position.x = -0.7;
+      c.position.y = 0.3;
       // a.visibility = 0
       // b.visibility = 0
-      c.visibility = 0
+      // c.visibility = 0
+      console.log(a)
 
       var mat0 = new BABYLON.StandardMaterial("mat0", scene);
-      
       var aCSG = BABYLON.CSG.FromMesh(a);
       var bCSG = BABYLON.CSG.FromMesh(b);
       var cCSG = BABYLON.CSG.FromMesh(c);
 
-      // 合成中间空心圆柱体
       var subCSG = bCSG.subtract(aCSG);
       var newMesh = subCSG.toMesh("csg1", mat0,scene);
-      newMesh.position = new BABYLON.Vector3(0, 0, 0);
+      newMesh.position = new BABYLON.Vector3(0.5, 0, 0);
       newMesh.visibility = 0
 
-      // 转成CSG
-      var newCSG = BABYLON.CSG.FromMesh(newMesh);
+      var clone = subCSG.clone();
+      clone = subCSG.toMesh("csg2", mat0,scene);
+      clone.visibility = 0
+      clone.position = new BABYLON.Vector3(-0.5, 0, 0);
 
-      // 合成半圆（空心圆柱+c）
-      subCSG = newCSG.subtract(cCSG);
-      newMesh = subCSG.toMesh("csg2", mat0,scene);
+      var ccc = BABYLON.CSG.FromMesh(clone);
+
+      subCSG = ccc.subtract(cCSG);
+      newMesh = subCSG.toMesh("csg3", mat0,scene);
       newMesh.position = new BABYLON.Vector3(0, 0, 0);
 
 
-      var A = BABYLON.MeshBuilder.CreateCylinder("A", {  diameter:0.39, height: 0.61, sideOrientation: BABYLON.Mesh.DOUBLESIDE,tessellation: 96}, scene);
-      var B = BABYLON.MeshBuilder.CreateCylinder("B", {  diameter:0.61, height: 0.51, sideOrientation: BABYLON.Mesh.DOUBLESIDE,tessellation: 96}, scene);
-      var C = BABYLON.MeshBuilder.CreateBox("C", {  width: 0.61, depth:0.61, height: 0.61, }, scene)
-      // c.position.x = -0.5;
-      // c.rotation.z = Math.PI/2
-      // console.log(c)
-      A.position.x = 0.8;
-      B.position.x = 0.8;
-      C.position.x = -0.3;
-      // a.visibility = 0
-      // b.visibility = 0
-      C.visibility = 0
 
-      var Mat0 = new BABYLON.StandardMaterial("Mat0", scene);
-      Mat0.diffuseColor.copyFromFloats(0.8, 0.2, 0.2);
-      
-      var ACSG = BABYLON.CSG.FromMesh(A);
-      var BCSG = BABYLON.CSG.FromMesh(B);
-      var CCSG = BABYLON.CSG.FromMesh(C);
-
-      // 合成中间空心圆柱体
-      var SubCSG = BCSG.subtract(ACSG);
-      var NewMesh = SubCSG.toMesh("Csg1", Mat0,scene);
-      NewMesh.position = new BABYLON.Vector3(0, 0, 0);
-      NewMesh.visibility = 0
-
-      // 转成CSG
-      var NewCSG = BABYLON.CSG.FromMesh(NewMesh);
-
-      // 合成半圆（空心圆柱+c）
-      SubCSG = NewCSG.subtract(CCSG);
-      NewMesh = SubCSG.toMesh("Csg2", Mat0,scene);
-      NewMesh.position = new BABYLON.Vector3(0, 0, 0);
-      NewMesh.rotation.y = Math.PI/2;
-
-      newMesh.visibility = 0
-      NewMesh.visibility = 0
-      var lastCSG = BABYLON.CSG.FromMesh(newMesh);
-      var LastCSG= BABYLON.CSG.FromMesh(NewMesh);
+      // subCSG = bCSG.subtract(cCSG);
+      // newMesh = subCSG.toMesh("csg2", mat0,scene);
+      // newMesh.position = new BABYLON.Vector3(-0.5, 0, 0);
 
 
-      // // clone 另一个半圆
-      // var cloneMesh = subCSG.toMesh("csg3", mat1,scene);
-      // cloneMesh.position = new BABYLON.Vector3(0, 0, 0);
-      // cloneMesh.rotation.y = Math.PI/2;
-      // newCSG = BABYLON.CSG.FromMesh(newMesh);
-      // var cloneCSG = BABYLON.CSG.FromMesh(cloneMesh);
-
-      // subCSG = lastCSG.subtract(LastCSG);
-      subCSG = lastCSG.union(LastCSG);
-      newMesh = subCSG.toMesh("csg2", mat0,scene);
-      newMesh.position = new BABYLON.Vector3(0, 0, 0);
+      // console.log(cone1.material)
     
 
     return scene;
