@@ -14,36 +14,33 @@ export default {
       scene: "",
       engine: "",
       option: {
-        id: 'two',
+        id: 'one',
         width: '480px',
         height: '400px',
-        centerColor: [0.2, 0.4, 0.5],
+        centerColor: [75, 176, 176],
+        legTop: '100px',
+        legRight: '40px',
+        legItemGap: '30px',
       },
       pieData: [
         {
-          name: '项目1',
-          color: [0.2, 0.6, 0.4],
+          name: '测试数据1',
+          color: [176, 169, 212],
           opctity: 1,
           value: 30
         },
         {
-          name: '项目2',
-          color: [0.2, 0.4, 0.5],
-          opctity: 1,
-          value: 60
-        },
-        {
-          name: '项目3',
-          color: [0.6, 0.4, 0.6],
+          name: '测试数据2',
+          color: [231, 77, 118],
           opctity: 1,
           value: 40
         },
         {
-          name: '项目4',
-          color: [0.4, 0.2, 0.3],
+          name: '测试数据3',
+          color: [114, 182, 230],
           opctity: 1,
-          value: 100
-        }
+          value: 60
+        },
       ],
     };
   },
@@ -72,19 +69,11 @@ export default {
       });
     },
 
-    createArc(scene, arc, height, rotationY, py, color3, opcity=1 ) {
-      let gap = 0;
-      if(arc>Math.PI){
-        gap = 0;
-      }else{
-        gap = 0.01;
-      };
-
+    createArc(scene,  height ) {
       var a = BABYLON.MeshBuilder.CreateCylinder(
         "a",
         {
-          diameter: 0.4, //内半径
-          // height: 0.6,
+          diameter: 0.4,
           height: height+0.01,
           sideOrientation: BABYLON.Mesh.DOUBLESIDE,
           tessellation: 96
@@ -95,7 +84,6 @@ export default {
         "b",
         {
           diameter: 0.6, //外半径
-          // height: 0.5,
           height: height,
           sideOrientation: BABYLON.Mesh.DOUBLESIDE,
           tessellation: 96
@@ -104,8 +92,7 @@ export default {
       );
       var c = BABYLON.MeshBuilder.CreateBox(
         "c",
-        { width: 0.6, depth: 0.6, 
-        // height: 0.6 },
+        { width: 0.6, depth: 0.6,
         height: height+0.01 },
         scene
       );
@@ -117,7 +104,7 @@ export default {
       c.visibility = 0;
 
       var mat0 = new BABYLON.StandardMaterial("mat0", scene);
-      // mat0.diffuseColor = new BABYLON.Color3(color3[0], color3[1], color3[2]);
+      mat0.diffuseColor = new BABYLON.Color3(0.5, 0.4, 0.4);
 
       var aCSG = BABYLON.CSG.FromMesh(a);
       var bCSG = BABYLON.CSG.FromMesh(b);
@@ -132,17 +119,19 @@ export default {
       // 转成CSG
       var newCSG = BABYLON.CSG.FromMesh(newMesh);
 
-      // 合成半圆（空心圆柱+c）
+      // 合成小半圆（空心圆柱+c）
       subCSG = newCSG.subtract(cCSG);
       newMesh = subCSG.toMesh("csg2", mat0, scene);
       newMesh.position = new BABYLON.Vector3(0, 0, 0);
+      // 复制小半圆
+      var clonMesh = newMesh.clone();
+      clonMesh.position = new BABYLON.Vector3(0, 0, 0);
 
       var A = BABYLON.MeshBuilder.CreateCylinder(
         "A",
         {
-          diameter: 0.4-gap, //内半径
-          // height: 0.61,
-          height: height+gap+0.01,
+          diameter: 0.4-0.01, //内半径
+          height: height+0.01,
           sideOrientation: BABYLON.Mesh.DOUBLESIDE,
           tessellation: 96
         },
@@ -151,9 +140,8 @@ export default {
       var B = BABYLON.MeshBuilder.CreateCylinder(
         "B",
         {
-          diameter: 0.6+gap, //外半径
-          // height: 0.51,
-          height: height+gap,
+          diameter: 0.6+0.01, //外半径
+          height: height,
           sideOrientation: BABYLON.Mesh.DOUBLESIDE,
           tessellation: 96
         },
@@ -162,8 +150,7 @@ export default {
       var C = BABYLON.MeshBuilder.CreateBox(
         "C",
         { width: 0.61, depth: 0.61, 
-        // height: 0.61 },
-        height: height+gap+0.01, },
+        height: height+0.02, },
         scene
       );
       A.position.x = 0.8;
@@ -186,48 +173,60 @@ export default {
       // 转成CSG
       var NewCSG = BABYLON.CSG.FromMesh(NewMesh);
 
-      // 合成半圆（空心圆柱+c）
+      // 合成大半圆（空心圆柱+c）
       SubCSG = NewCSG.subtract(CCSG);
       NewMesh = SubCSG.toMesh("Csg2", mat0, scene);
       NewMesh.position = new BABYLON.Vector3(0, 0, 0);
-      if(arc >0 && arc <= Math.PI ){
-        NewMesh.rotation.y = arc;
-      }else{
-        NewMesh.rotation.y = arc + Math.PI ;
-      };
 
+      clonMesh.visibility = 0;
       newMesh.visibility = 0;
       NewMesh.visibility = 0;
+      // clonMesh.position = new BABYLON.Vector3(-0.5, 0, 0);
+      // newMesh.position = new BABYLON.Vector3(0, 0, 0);
+      // NewMesh.position = new BABYLON.Vector3(0.5, 0, 0);
 
+      // NewMesh.rotation.y = Math.PI/2;
       var lastCSG = BABYLON.CSG.FromMesh(newMesh);
       var LastCSG = BABYLON.CSG.FromMesh(NewMesh);
 
+// *******************************************
+      // NewMesh.rotation.y = Math.PI/2;
+      // subCSG = lastCSG.subtract(LastCSG);
+      // var  mat1 = new BABYLON.StandardMaterial("mat1", scene);
+      // mat1.diffuseColor = new BABYLON.Color3(0.5, 0.2, 0.3);
+      // newMesh = subCSG.toMesh("csg3", mat1, scene);
+// *******************************************
+
       if(this.pieData){
+        var sum = 0;
+        var flag = 0;
+        var arc = 0;
+        this.pieData.map(item=>{
+          sum += item.value;
+        });
         this.pieData.map((item,index)=>{
-          if(arc >0 && arc <= Math.PI ){
+          let  mat0 = new BABYLON.StandardMaterial("mat0", scene);
+          mat0.diffuseColor = new BABYLON.Color3(item.color[0]/255, item.color[1]/255, item.color[2]/255);
+          arc = (item.value)/sum*360;
+          console.log(arc)
+          if(arc >0 && arc <= 180 ){
+            NewMesh.rotation.y = Math.PI/180*arc;
+            LastCSG = BABYLON.CSG.FromMesh(NewMesh);
             subCSG = lastCSG.subtract(LastCSG);
           }else{
+            clonMesh.rotation.y = Math.PI/180*arc + Math.PI ;
+            LastCSG = BABYLON.CSG.FromMesh(clonMesh);
             subCSG = lastCSG.union(LastCSG);
-          }
-          mat0.diffuseColor = new BABYLON.Color3(item.color[0], item.color[1], item.color[2]);
-          newMesh = subCSG.toMesh("csga"+index, mat0, scene);
-          newMesh.position = new BABYLON.Vector3(0, 0+py, 0);
-          newMesh.rotation.y = rotationY+index+2;
-          newMesh.visibility = opcity;
+          };
+          let scall = index/1.5+1
+          subCSG.scaling = new BABYLON.Vector3(1, scall, 1);
+          newMesh = subCSG.toMesh("csg2", mat0, scene);
+          newMesh.position = new BABYLON.Vector3(0, scall*height/2-0.2, 0);
+          newMesh.rotation.y = Math.PI/180*(flag);
+          newMesh.visibility = 1;
+          flag += arc;
         })
       }
-      
-
-      // if(arc >0 && arc <= Math.PI ){
-      //   subCSG = lastCSG.subtract(LastCSG);
-      // }else{
-      //   subCSG = lastCSG.union(LastCSG);
-      // }
-      // newMesh = subCSG.toMesh("csg2", mat0, scene);
-      // newMesh.position = new BABYLON.Vector3(0, 0+py, 0);
-      // newMesh.rotation.y = rotationY;
-      // newMesh.visibility = opcity;
-
     },
 
     createScene() {
@@ -236,16 +235,14 @@ export default {
       var scene = new BABYLON.Scene(_this.engine);
       var camera = new BABYLON.ArcRotateCamera(
         "Camera",
-        Math.PI / 2,
-        Math.PI /3,
+        Math.PI / 6,
+        Math.PI /4,
         2,
         BABYLON.Vector3.Zero(),
         scene
       );
       camera.attachControl(_this.canvas, true);
-      // camera.target = new BABYLON.Vector3(-10, 0, 0);
-      // camera.position = new BABYLON.Vector3(0, 0, 2);
-      // camera.targetScreenOffset = new BABYLON.Vector2(-0.5, 0);
+      camera.targetScreenOffset = new BABYLON.Vector2(-0.1, 0);
 
       var light1 = new BABYLON.HemisphericLight(
         "light1",
@@ -257,48 +254,35 @@ export default {
         new BABYLON.Vector3(0, 1, -1),
         scene
       );
-      
-      // *************************
-      // const turret = BABYLON.MeshBuilder.CreateSphere('turret', {segments: 16, diameter: .5});
-      // var turretPivot = new BABYLON.TransformNode("pivot", scene);
-      // turret.parent = turretPivot;
-      // turret.position.z = 1.5;
-      // turretPivot.parent = sphere;
-      
-      //**************************
-
-      // ~~~~~~~~~~~~~~~~~~~~~~~~~~
       // 中间圆柱
       var sourceMat = new BABYLON.StandardMaterial("sourceMat", scene);
-      sourceMat.diffuseColor.copyFromFloats(108/255, 111/255, 181/255)
+      // sourceMat.diffuseColor.copyFromFloats(0.2, 0.4, 0.2);
+      sourceMat.diffuseColor.copyFromFloats(centerColor[0]/255, centerColor[1]/255, centerColor[2]/255);
       var center = BABYLON.MeshBuilder.CreateCylinder("center", { diameter: 0.2,  height: 0.3, sideOrientation: BABYLON.Mesh.DOUBLESIDE, tessellation: 96 }, scene );
       center.material = sourceMat;
       center.position.y = 0.05;
-      camera.setTarget(center)
-      camera.lockedTarget = center
-      // ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
       // this.formatData(scene)
       // 弧度，高度，角度，位置，颜色，透明度
-      this.createArc(scene, Math.PI/180*(75), 0.2, Math.PI/180*(0), 0, [0.2, 0.3, 0.4], 1);
+      this.createArc(scene, 0.2);
 
       return scene;
     },
 
-    formatData(scene){
-      if(this.pieData){
-        let sum = 0;
-        let flag = 0;
-        this.pieData.map(item=>{
-          sum += item.value;
-        });
-        this.pieData.map((item,index)=>{
-          item.arc = (item.value)/sum*360;
-          this.createArc(scene, Math.PI/180*(item.arc), 0.2+index/10, Math.PI/180*(flag), 0+index/20, item.color, item.opctity);
-          flag += item.arc;
-        })
-      }
-    }
+    // formatData(scene){
+    //   if(this.pieData){
+    //     let sum = 0;
+    //     let flag = 0;
+    //     this.pieData.map(item=>{
+    //       sum += item.value;
+    //     });
+    //     this.pieData.map((item,index)=>{
+    //       item.arc = (item.value)/sum*360;
+    //       this.createArc(scene, Math.PI/180*(item.arc), 0.2+index/10, Math.PI/180*(flag), 0+index/20, item.color, item.opctity);
+    //       flag += item.arc;
+    //     })
+    //   }
+    // }
   },
   watch: {},
   computed: {}
