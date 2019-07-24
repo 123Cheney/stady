@@ -131,7 +131,7 @@ export default {
         "A",
         {
           diameter: 0.4-0.01, //内半径
-          height: height+0.01,
+          height: height+0.02,
           sideOrientation: BABYLON.Mesh.DOUBLESIDE,
           tessellation: 96
         },
@@ -141,7 +141,7 @@ export default {
         "B",
         {
           diameter: 0.6+0.01, //外半径
-          height: height,
+          height: height+0.01,
           sideOrientation: BABYLON.Mesh.DOUBLESIDE,
           tessellation: 96
         },
@@ -181,22 +181,9 @@ export default {
       clonMesh.visibility = 0;
       newMesh.visibility = 0;
       NewMesh.visibility = 0;
-      // clonMesh.position = new BABYLON.Vector3(-0.5, 0, 0);
-      // newMesh.position = new BABYLON.Vector3(0, 0, 0);
-      // NewMesh.position = new BABYLON.Vector3(0.5, 0, 0);
 
-      // NewMesh.rotation.y = Math.PI/2;
       var lastCSG = BABYLON.CSG.FromMesh(newMesh);
       var LastCSG = BABYLON.CSG.FromMesh(NewMesh);
-
-// *******************************************
-      // NewMesh.rotation.y = Math.PI/2;
-      // subCSG = lastCSG.subtract(LastCSG);
-      // var  mat1 = new BABYLON.StandardMaterial("mat1", scene);
-      // mat1.diffuseColor = new BABYLON.Color3(0.5, 0.2, 0.3);
-      // newMesh = subCSG.toMesh("csg3", mat1, scene);
-// *******************************************
-
       if(this.pieData){
         var sum = 0;
         var flag = 0;
@@ -208,7 +195,6 @@ export default {
           let  mat0 = new BABYLON.StandardMaterial("mat0", scene);
           mat0.diffuseColor = new BABYLON.Color3(item.color[0]/255, item.color[1]/255, item.color[2]/255);
           arc = (item.value)/sum*360;
-          console.log(arc)
           if(arc >0 && arc <= 180 ){
             NewMesh.rotation.y = Math.PI/180*arc;
             LastCSG = BABYLON.CSG.FromMesh(NewMesh);
@@ -268,21 +254,6 @@ export default {
 
       return scene;
     },
-
-    // formatData(scene){
-    //   if(this.pieData){
-    //     let sum = 0;
-    //     let flag = 0;
-    //     this.pieData.map(item=>{
-    //       sum += item.value;
-    //     });
-    //     this.pieData.map((item,index)=>{
-    //       item.arc = (item.value)/sum*360;
-    //       this.createArc(scene, Math.PI/180*(item.arc), 0.2+index/10, Math.PI/180*(flag), 0+index/20, item.color, item.opctity);
-    //       flag += item.arc;
-    //     })
-    //   }
-    // }
   },
   watch: {},
   computed: {}

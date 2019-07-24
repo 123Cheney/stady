@@ -70,8 +70,21 @@ export default {
 
       var aCSG = BABYLON.CSG.FromMesh(a);
       var bCSG = BABYLON.CSG.FromMesh(b);
+
+      bCSG.scaling = new BABYLON.Vector3(0.5, 1.5, 0.5);
+      var bMesh = bCSG.toMesh("csg6", mat0, scene);
+      bMesh.position = new BABYLON.Vector3(0, 0, 0);
+      bMesh.visibility = 0
+
+      var cCSG = BABYLON.CSG.FromMesh(bMesh);
+      // 
+      // var c = bCSG.toMesh("c", mat0, scene);
+      // bCSG = BABYLON.CSG.FromMesh(c);
       
-      var subCSG = aCSG.subtract(bCSG);
+      
+      var subCSG = aCSG.subtract(cCSG);
+      // subCSG.scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
+
       var newMesh = subCSG.toMesh("csg1", mat0, scene);
       newMesh.position = new BABYLON.Vector3(0, 0, 0);
 
