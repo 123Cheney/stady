@@ -1,169 +1,114 @@
 <template>
   <div class="page">
-    <!-- <canvas id="renderCanvas"></canvas> -->
     <canvas id="renderCanvas" :style="{width: '800px',height: '400px'}"></canvas>
   </div>
 </template>
-
-
 
 <script>
 import * as BABYLON from "babylonjs";
 export default {
   components: {},
   data() {
-    return {};
+    return {
+      canvas: "",
+      scene: "",
+      engine: ""
+    };
   },
   props: [],
   mounted() {
-    var canvas = document.getElementById("renderCanvas");
-    // 加载3D引擎
-    var engine = new BABYLON.Engine(canvas, true, {
-      preserveDrawingBuffer: true,
-      stencil: true
-    });
-    // CreateScene function that creates and return the scene
-    var createScene = function () {
-
-    // Create the scene space
-    var scene = new BABYLON.Scene(engine);
-
-    // Add a camera to the scene and attach it to the canvas
-    var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, BABYLON.Vector3.Zero(), scene);
-    camera.attachControl(canvas, true);
-
-    // Add lights to the scene
-    var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(1, 1, 0), scene);
-    var light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 1, -1), scene);
-
-    // 灯光设置颜色
-    // light1.diffuse = new BABYLON.Color3(1, 0, 0);
-    // light1.specular = new BABYLON.Color3(0, 1, 0);
-    // light1.groundColor = new BABYLON.Color3(0, 1, 0);
-
-  //  var plane1 = BABYLON.MeshBuilder.CreatePlane("plane", {width: 0.2, size:0.5, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
-  //      plane1.position.x= 0.1;
-  //  var plane2 = BABYLON.MeshBuilder.CreatePlane("plane", {width: 0.2, size:0.5, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
- 
-
-      var a = BABYLON.MeshBuilder.CreateCylinder("a", {  diameter:0.4, height: 0.6, sideOrientation: BABYLON.Mesh.DOUBLESIDE,tessellation: 96}, scene);
-      var b = BABYLON.MeshBuilder.CreateCylinder("b", {  diameter:0.6, height: 0.5, sideOrientation: BABYLON.Mesh.DOUBLESIDE,tessellation: 96}, scene);
-      var c = BABYLON.MeshBuilder.CreateBox("c", {  width: 0.6, depth:0.6, height: 0.6, }, scene)
-      // c.position.x = -0.5;
-      // c.rotation.z = Math.PI/2
-      // console.log(c)
-      a.position.x = 0.8;
-      b.position.x = 0.8;
-      c.position.x = -0.3;
-      // a.visibility = 0
-      // b.visibility = 0
-      c.visibility = 0
-
-      var mat0 = new BABYLON.StandardMaterial("mat0", scene);
-      
-      var aCSG = BABYLON.CSG.FromMesh(a);
-      var bCSG = BABYLON.CSG.FromMesh(b);
-      var cCSG = BABYLON.CSG.FromMesh(c);
-
-      // 合成中间空心圆柱体
-      var subCSG = bCSG.subtract(aCSG);
-      var newMesh = subCSG.toMesh("csg1", mat0,scene);
-      newMesh.position = new BABYLON.Vector3(0, 0, 0);
-      newMesh.visibility = 0
-
-      // 转成CSG
-      var newCSG = BABYLON.CSG.FromMesh(newMesh);
-
-      // 合成半圆（空心圆柱+c）
-      subCSG = newCSG.subtract(cCSG);
-      newMesh = subCSG.toMesh("csg2", mat0,scene);
-      newMesh.position = new BABYLON.Vector3(0, 0, 0);
-
-
-      var A = BABYLON.MeshBuilder.CreateCylinder("A", {  diameter:0.39, height: 0.61, sideOrientation: BABYLON.Mesh.DOUBLESIDE,tessellation: 96}, scene);
-      var B = BABYLON.MeshBuilder.CreateCylinder("B", {  diameter:0.61, height: 0.51, sideOrientation: BABYLON.Mesh.DOUBLESIDE,tessellation: 96}, scene);
-      var C = BABYLON.MeshBuilder.CreateBox("C", {  width: 0.61, depth:0.61, height: 0.61, }, scene)
-      // c.position.x = -0.5;
-      // c.rotation.z = Math.PI/2
-      // console.log(c)
-      A.position.x = 0.8;
-      B.position.x = 0.8;
-      C.position.x = -0.3;
-      // a.visibility = 0
-      // b.visibility = 0
-      C.visibility = 0
-
-      var Mat0 = new BABYLON.StandardMaterial("Mat0", scene);
-      Mat0.diffuseColor.copyFromFloats(0.8, 0.2, 0.2);
-      
-      var ACSG = BABYLON.CSG.FromMesh(A);
-      var BCSG = BABYLON.CSG.FromMesh(B);
-      var CCSG = BABYLON.CSG.FromMesh(C);
-
-      // 合成中间空心圆柱体
-      var SubCSG = BCSG.subtract(ACSG);
-      var NewMesh = SubCSG.toMesh("Csg1", Mat0,scene);
-      NewMesh.position = new BABYLON.Vector3(0, 0, 0);
-      NewMesh.visibility = 0
-
-      // 转成CSG
-      var NewCSG = BABYLON.CSG.FromMesh(NewMesh);
-
-      // 合成半圆（空心圆柱+c）
-      SubCSG = NewCSG.subtract(CCSG);
-      NewMesh = SubCSG.toMesh("Csg2", Mat0,scene);
-      NewMesh.position = new BABYLON.Vector3(0, 0, 0);
-      NewMesh.rotation.y = Math.PI/2;
-
-      newMesh.visibility = 0
-      NewMesh.visibility = 0
-      var lastCSG = BABYLON.CSG.FromMesh(newMesh);
-      var LastCSG= BABYLON.CSG.FromMesh(NewMesh);
-
-
-      // // clone 另一个半圆
-      // var cloneMesh = subCSG.toMesh("csg3", mat1,scene);
-      // cloneMesh.position = new BABYLON.Vector3(0, 0, 0);
-      // cloneMesh.rotation.y = Math.PI/2;
-      // newCSG = BABYLON.CSG.FromMesh(newMesh);
-      // var cloneCSG = BABYLON.CSG.FromMesh(cloneMesh);
-
-      // subCSG = lastCSG.subtract(LastCSG);
-      subCSG = lastCSG.union(LastCSG);
-      newMesh = subCSG.toMesh("csg2", mat0,scene);
-      newMesh.position = new BABYLON.Vector3(0, 0, 0);
-    
-
-    return scene;
-
-};
-
-    var scene = createScene();
-
-    //在canvas中渲染这个场景（注意渲染是一个定时循环)
-    engine.runRenderLoop(function() {
-      scene.render();
-    });
-
-    window.addEventListener("resize", function() {
-      engine.resize();
-    });
+    this.initial();
   },
 
-  methods: {},
+  methods: {
+    initial() {
+      let _this = this;
+      _this.canvas = document.getElementById("renderCanvas");
+      // 加载3D引擎
+      _this.engine = new BABYLON.Engine(_this.canvas, true, {
+        preserveDrawingBuffer: true,
+        stencil: true
+      });
+
+      _this.scene = this.createScene();
+
+      _this.engine.runRenderLoop(function() {
+        _this.scene.render();
+      });
+
+      window.addEventListener("resize", function() {
+        _this.engine.resize();
+      });
+    },
+
+    createMesh(scene) {
+
+      var a = BABYLON.MeshBuilder.CreateCylinder(
+        "a",
+        {
+          diameter: 1, 
+          height: 0.1,
+          sideOrientation: BABYLON.Mesh.DOUBLESIDE,
+          tessellation: 3
+        },
+        scene
+      );
+      var b = BABYLON.MeshBuilder.CreateCylinder(
+        "b",
+        {
+          diameter: 0.7, 
+          height: 0.2,
+          sideOrientation: BABYLON.Mesh.DOUBLESIDE,
+          tessellation: 3
+        },
+        scene
+      );
+      a.visibility = 0;
+      b.visibility = 0;
+
+      var mat0 = new BABYLON.StandardMaterial("mat0", scene);
+
+      var aCSG = BABYLON.CSG.FromMesh(a);
+      var bCSG = BABYLON.CSG.FromMesh(b);
+      
+      var subCSG = aCSG.subtract(bCSG);
+      var newMesh = subCSG.toMesh("csg1", mat0, scene);
+      newMesh.position = new BABYLON.Vector3(0, 0, 0);
+
+    },
+
+    createScene() {
+      let _this = this;
+      var scene = new BABYLON.Scene(_this.engine);
+      var camera = new BABYLON.ArcRotateCamera(
+        "Camera",
+        Math.PI / 5,
+        Math.PI / 4,
+        2,
+        BABYLON.Vector3.Zero(),
+        scene
+      );
+      camera.attachControl(_this.canvas, false);
+      
+
+      var light1 = new BABYLON.HemisphericLight(
+        "light1",
+        new BABYLON.Vector3(1, 1, 0),
+        scene
+      );
+      var light2 = new BABYLON.PointLight(
+        "light2",
+        new BABYLON.Vector3(0, 1, -1),
+        scene
+      );
+      
+      this.createMesh()
+
+      return scene;
+    }
+  },
   watch: {},
   computed: {}
-
-
-
-
-
-
-
-  // var faceColors = [];
-		// 		faceColors[0] = new Color4(206, 168, 48, 1.0);
-		// 		faceColors[1] = new Color4(206, 168, 48, 1.0);
-		// 		faceColors[2] = new Color4(206, 168, 48, 1.0);
 };
 </script>
 
