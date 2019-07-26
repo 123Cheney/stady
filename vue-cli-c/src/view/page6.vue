@@ -1,165 +1,224 @@
 <template>
   <div class="page">
-
+    <canvas :id="option.id" :style="{width: option.width, height: option.height}"></canvas>
   </div>
 </template>
 
 <script>
-// import * as d3 from "d3";
-var i = 0, j = 0, n = 0, m = 0;
-var gap = 20;
+import * as BABYLON from "babylonjs";
 export default {
+  components: {},
   data() {
     return {
-      Donut3D: {},
-	    // i: 0, j: 0, n: 0, m: 0,
-      // gap: 20,
-      salesData: [
-        {label:"Basic", color:"#9b3369", value: 10, values: 90},
-        {label:"Basic", color:"#FF9900", value: 5, values: 90},
-        {label:"Elite", color:"#e74d76",value: 20, values: 90},
-        {label:"Elite", color:"#3366cc",value: 30, values: 90},
+      canvas: "",
+      scene: "",
+      engine: "",
+      option: {
+        id: 'one',
+        width: '480px',
+        height: '400px',
+        centerColor: [75, 176, 176],
+        legTop: '100px',
+        legRight: '40px',
+        legItemGap: '30px',
+      },
+      pieData: [
+        {
+          name: '测试数据1',
+          color: [108, 111, 181],
+          opctity: 0.7,
+          value: 40
+        },
+        {
+          name: '测试数据2',
+          color: [211, 121, 149],
+          opctity: 0.7,
+          value: 30
+        },
+        {
+          name: '测试数据3',
+          color: [0.6, 0.4, 0.6],
+          color: [237, 75, 111],
+          opctity: 0.7,
+          value: 90
+        }
       ]
     };
   },
-  methods: {
-
-    pieTop(d, rx, ry, ir ){
-      let basci = i*gap;
-      i++;
-      if(d.endAngle - d.startAngle == 0 ) return "M 0 0";
-      var sx = rx*Math.cos(d.startAngle),
-        sy = ry*Math.sin(d.startAngle),
-        ex = rx*Math.cos(d.endAngle),
-        ey = ry*Math.sin(d.endAngle);
-        
-        let ssy = sy-basci;
-        let eey = ey-basci;
-        let iey = ir*ey-basci;
-        let isy = ir*sy-basci;
-      var ret =[];
-      
-      ret.push("M",sx,ssy,"A",rx,ry,"0",(d.endAngle-d.startAngle > Math.PI? 1: 0),"1",ex,eey,"L",ir*ex,iey);
-      ret.push("A",ir*rx,ir*ry,"0",(d.endAngle-d.startAngle > Math.PI? 1: 0), "0",ir*sx,isy,"z");
-      return ret.join(" ");
-    },
-	
-    pieOuter(d, rx, ry, h ){
-      let basci = j*gap;
-      j++;
-      var startAngle = (d.startAngle > Math.PI ? Math.PI : d.startAngle);
-      var endAngle = (d.endAngle > Math.PI ? Math.PI : d.endAngle);
-      
-      var sx = rx*Math.cos(startAngle),
-        sy = ry*Math.sin(startAngle),
-        ex = rx*Math.cos(endAngle),
-        ey = ry*Math.sin(endAngle);
-        
-        let eey = ey-basci;
-        let ssy = sy-basci;
-        
-        var ret =[];
-        ret.push("M",sx,h+sy,"A",rx,ry,"0 0 1",ex,h+ey,"L",ex,eey,"A",rx,ry,"0 0 0",sx,ssy,"z");
-        return ret.join(" ");
-    },
-
-    pieInner(d, rx, ry, h, ir ){
-      let basci = n*gap;
-      n++;
-      var startAngle = (d.startAngle < Math.PI ? Math.PI : d.startAngle);
-      var endAngle = (d.endAngle < Math.PI ? Math.PI : d.endAngle);
-      
-      var sx = ir*rx*Math.cos(startAngle),
-        sy = ir*ry*Math.sin(startAngle),
-        ex = ir*rx*Math.cos(endAngle),
-        ey = ir*ry*Math.sin(endAngle);
-        
-        let ssy = sy-basci;
-        let eey = ey-basci;
-
-        var ret =[];
-        ret.push("M",sx, ssy,"A",ir*rx,ir*ry,"0 0 1",ex,eey, "L",ex,h+ey,"A",ir*rx, ir*ry,"0 0 0",sx,h+sy,"z");
-        return ret.join(" ");
-    },
-    
-    pieSide(d, rx, ry, ir ){
-      let basci = m*gap;
-      m++;
-      
-      if(d.endAngle - d.startAngle == 0 ) return "M 0 0";
-      
-      if(d.startAngle>0 && d.startAngle<=Math.PI/2){
-        return "M 0 0";
-      }
-      
-      var sx = rx*Math.cos(d.startAngle),
-        sy = ry*Math.sin(d.startAngle),
-        ex = rx*Math.cos(d.endAngle),
-        ey = ry*Math.sin(d.endAngle);
-        
-        let ssy = sy-basci;
-        let eey = ey-basci;
-        let iey = ir*ey-basci;
-        let isy = ir*sy-basci;
-        
-      var ret =[];
-      
-      // 最后一个side
-      if( d.endAngle.toFixed(2) == 2*Math.PI.toFixed(2) ){
-        console.log('ss')
-        ret.push("M",ex,eey,"L",ir*ex,iey,"L",ir*ex,iey+basci,"L",ex,eey+basci,"z");
-        ret.push("M",sx,ssy+gap,"L",sx,ssy,"L",ir*sx,isy,"L",ir*sx,isy+gap,"z");
-      }else{
-        ret.push("M",sx,ssy+gap,"L",sx,ssy,"L",ir*sx,isy,"L",ir*sx,isy+gap,"z");
-      }
-      return ret.join(" ");
-    },
-
-    getPercent(d){
-      return (d.endAngle-d.startAngle > 0.2 ? 
-          Math.round(1000*(d.endAngle-d.startAngle)/(Math.PI*2))/10+'%' : '');
-    },
+  props: [],
+  mounted() {
+    this.initial();
   },
-  mounted(){
-    // console.log(d3)
-    this.Donut3D.draw=function(id, data, x /*center x*/, y/*center y*/, 
-			rx/*radius x*/, ry/*radius y*/, h/*height*/, ir/*inner radius*/){
-	console.log(d3)
-      var _data = d3.layout.pie().sort(null).value(function(d) {return d.value;})(data);
-      
-      var slices = d3.select("#"+id).append("g").attr("transform", "translate(" + x + "," + y + ")")
-        .attr("class", "slices");
-        
-      slices.selectAll(".innerSlice").data(_data).enter().append("path").attr("class", "innerSlice")
-        .style("fill", function(d) { return d3.hsl(d.data.color).darker(0.7); })
-        .attr("d",function(d){ return pieInner(d, rx+0.5,ry+0.5, h, ir);})
-        .each(function(d){this._current=d;});
-      
-      slices.selectAll(".sideSlice").data(_data).enter().append("path").attr("class", "sideSlice")
-        // .style("fill", function(d) { return d.data.color; })
-        // .style("stroke", function(d) { return d.data.color; })
-        .style("fill", function(d) { return d3.hsl(d.data.color).darker(0.5); })
-        .attr("d",function(d){ return pieSide(d, rx, ry, ir);})
-        .each(function(d){this._current=d;});
-        
-      slices.selectAll(".topSlice").data(_data).enter().append("path").attr("class", "topSlice")
-        .style("fill", function(d) { return d.data.color; })
-        .style("stroke", function(d) { return d.data.color; })
-        .attr("d",function(d){ return pieTop(d, rx, ry, ir);})
-        .each(function(d){this._current=d;});
-        
-      slices.selectAll(".outerSlice").data(_data).enter().append("path").attr("class", "outerSlice")
-        .style("fill", function(d) { return d3.hsl(d.data.color).darker(0.7); })
-        .attr("d",function(d){ return pieOuter(d, rx-.5,ry-.5, h);})
-        .each(function(d){this._current=d;});
 
-      // slices.selectAll(".percent").data(_data).enter().append("text").attr("class", "percent")
-      // 	.attr("x",function(d){ return 0.6*rx*Math.cos(0.5*(d.startAngle+d.endAngle));})
-      // 	.attr("y",function(d){ return 0.6*ry*Math.sin(0.5*(d.startAngle+d.endAngle));})
-      // 	.text(getPercent).each(function(d){this._current=d;});				
+  methods: {
+    initial() {
+      let _this = this;
+      _this.canvas = document.getElementById(this.option.id);
+      // 加载3D引擎
+      _this.engine = new BABYLON.Engine(_this.canvas, true, {
+        preserveDrawingBuffer: true,
+        stencil: true
+      });
+
+      setTimeout(()=>{
+         _this.scene = this.createScene();
+
+        _this.engine.runRenderLoop(function() {
+          _this.scene.render();
+        });
+
+        window.addEventListener("resize", function() {
+          _this.engine.resize();
+        });
+      },0)
+    },
+
+    createArc(scene, height=0.1, diameter=0.8) {
+      var a = BABYLON.MeshBuilder.CreateCylinder(
+        "a",
+        {
+          diameter: diameter, //外半径
+          height: height,
+          tessellation: 96
+        },
+        scene
+      );
+      var b = BABYLON.MeshBuilder.CreateBox(
+        "b",
+        { width: diameter, depth: diameter, height: height + 0.01 },
+        scene
+      );
+
+      var A = BABYLON.MeshBuilder.CreateCylinder(
+        "A",
+        {
+          diameter: diameter,
+          height: height+0.02,
+          tessellation: 3
+        },
+        scene
+      );
+      var B = BABYLON.MeshBuilder.CreateCylinder(
+        "B",
+        {
+          diameter: diameter-0.3,
+          height: height+0.03,
+          tessellation: 3
+        },
+        scene
+      );
+      b.position.x = 0.4;
+
+      
+     
+      a.isVisible = false;
+      b.isVisible = false;
+      A.isVisible = false;
+      B.isVisible = false;
+
+      // 材料
+      var mat0 = new BABYLON.StandardMaterial("mat0", scene);
+      mat0.diffuseColor = new BABYLON.Color3(0.5, 0.2, 0.4);
+      var mat1 = new BABYLON.StandardMaterial("mat1", scene);
+      mat1.diffuseColor = new BABYLON.Color3(0.2, 0.4, 0.6);
+
+      // 半圆
+      var aCSG = BABYLON.CSG.FromMesh(a);
+      var bCSG = BABYLON.CSG.FromMesh(b);
+      var byCSG = aCSG.subtract(bCSG);
+      var byMesh = byCSG.toMesh("csg1", mat0, scene);
+
+      // 三角形
+      var ACSG = BABYLON.CSG.FromMesh(A);
+      var BCSG = BABYLON.CSG.FromMesh(B);
+      var sjCSG = ACSG.subtract(BCSG);
+      // var sjMesh = sjCSG.toMesh("csg2", null, scene);
+
+
+      // ********************************************************
+      // 克隆
+      var cloneMesh = byMesh.clone();
+      cloneMesh.material = mat1;
+      // cloneMesh.rotation.y = Math.PI;
+      var cloneCSG =  BABYLON.CSG.FromMesh(cloneMesh);
+
+      byMesh.isVisible = false;
+      cloneMesh.isVisible = false;
+
+      
+      if (this.pieData) {
+        var sum = 0;
+        var flag = 0;
+        var arc = 0;
+        this.pieData.map(item => {
+          sum += item.value;
+        });
+        this.pieData.map((item, index) => {
+          let mat0 = new BABYLON.StandardMaterial("mat0", scene);
+          let arcMesh = '';
+          let arcCSG = '';
+          let lastMesh = '';
+          mat0.diffuseColor = new BABYLON.Color3(
+            item.color[0] / 255,
+            item.color[1] / 255,
+            item.color[2] / 255
+          );
+          arc = (item.value / sum) * 360;
+          if (arc > 0 && arc <= 180) {
+            cloneMesh.rotation.y = (Math.PI / 180) * arc;
+            cloneCSG = BABYLON.CSG.FromMesh(cloneMesh);
+            arcMesh = byCSG.subtract(cloneCSG).toMesh("csg1", mat0, scene);
+          } else {
+            cloneMesh.rotation.y = (Math.PI / 180) * arc + Math.PI;
+            cloneCSG = BABYLON.CSG.FromMesh(cloneMesh);
+            arcMesh = byCSG.union(cloneCSG).toMesh("csg1", mat0, scene);
+          }
+          arcMesh.rotation.y = (Math.PI / 180) * flag;
+          arcMesh.isVisible = false;
+          arcCSG = BABYLON.CSG.FromMesh(arcMesh);
+          lastMesh = arcCSG.intersect(sjCSG).toMesh("csg3", mat0, scene);
+          flag += arc;
+        });
+      }
+    },
+
+    createScene() {
+      let { centerColor } = this.option;
+      let _this = this;
+      var scene = new BABYLON.Scene(_this.engine);
+      // 背景色
+      // scene.clearColor = new BABYLON.Color3(0, 0, 0);
+      var camera = new BABYLON.ArcRotateCamera(
+        "Camera",
+        Math.PI / 6,
+        Math.PI / 4,
+        2,
+        BABYLON.Vector3.Zero(),
+        scene
+      );
+      camera.attachControl(_this.canvas, true);
+      camera.targetScreenOffset = new BABYLON.Vector2(-0.1, 0);
+
+      var light1 = new BABYLON.HemisphericLight(
+        "light1",
+        new BABYLON.Vector3(1, 1, 0),
+        scene
+      );
+      var light2 = new BABYLON.PointLight(
+        "light2",
+        new BABYLON.Vector3(0, 1, -1),
+        scene
+      );
+
+      // this.formatData(scene)
+      // 弧度，高度，角度，位置，颜色，透明度
+      this.createArc(scene);
+
+      return scene;
     }
-    this.Donut3D.draw("salesDonut", this.salesData, 150, 150, 100, 60, 100, 0.5);  
-  }
+  },
+  watch: {},
+  computed: {}
 };
 </script>
 
