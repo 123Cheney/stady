@@ -25,24 +25,29 @@ export default {
       pieData: [
         {
           name: '测试数据1',
-          color: [108, 111, 181],
-          opctity: 0.7,
-          value: 40
-        },
-        {
-          name: '测试数据2',
-          color: [211, 121, 149],
-          opctity: 0.7,
+          color: [176, 169, 212],
+          opctity: 1,
           value: 30
         },
         {
+          name: '测试数据2',
+          color: [231, 77, 118],
+          opctity: 1,
+          value: 40
+        },
+        {
           name: '测试数据3',
-          color: [0.6, 0.4, 0.6],
-          color: [237, 75, 111],
-          opctity: 0.7,
-          value: 90
-        }
-      ]
+          color: [114, 182, 230],
+          opctity: 1,
+          value: 40
+        },
+        // {
+          // name: '测试数据4',
+          // color: [80, 59, 153],
+          // opctity: 1,
+          // value: 180
+        // }
+      ],
     };
   },
   props: [],
@@ -73,7 +78,7 @@ export default {
       },0)
     },
 
-    createArc(scene, height=0.1, diameter=0.8) {
+    createArc(scene, height=0.1, diameter=1) {
       var a = BABYLON.MeshBuilder.CreateCylinder(
         "a",
         {
@@ -107,7 +112,7 @@ export default {
         },
         scene
       );
-      b.position.x = 0.4;
+      b.position.x = diameter/2;
 
       
      

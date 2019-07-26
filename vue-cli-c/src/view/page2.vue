@@ -104,7 +104,7 @@ export default {
       c.visibility = 0;
 
       var mat0 = new BABYLON.StandardMaterial("mat0", scene);
-      mat0.diffuseColor = new BABYLON.Color3(0.5, 0.4, 0.4);
+      // mat0.diffuseColor = new BABYLON.Color3(0.5, 0.4, 0.4);
 
       var aCSG = BABYLON.CSG.FromMesh(a);
       var bCSG = BABYLON.CSG.FromMesh(b);
