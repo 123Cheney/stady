@@ -23,7 +23,7 @@ export default {
     // this.$store.dispatch('changeInfo','改变后的a')
     // this.changeA('mapActions')
     this.changeInfo('changeInfo');
-    hljs.registerLanguage('javascript', javascript);
+    // hljs.registerLanguage('javascript', javascript);
   },
   methods: {
     // action的一个辅助函数，将组件的 methods 映射为 store.dispatch 调用
