@@ -1,171 +1,131 @@
+<!-- ecahrt 3dmap -->
 <template>
-  <div class="chart-ring" :style="{height:'450px', width: '550px'}" >
-    <el-button ><router-link to="page7-1"> to apple</router-link></el-button>
-    <div ref="pie" class="pie-box"></div>   
+  <div class="box">
+    <div class='mapbox'
+         ref="mapone"></div>
+    <div class='mapbox'
+         ref="maptwo"></div>
   </div>
 </template>
-
 <script>
+
 import echarts from "echarts";
-import 'echarts-gl';
+import china from 'echarts/map/js/china'
+import anhui from 'echarts/map/js/province/anhui'
 export default {
   components: {},
+  //props:  {type: Number或[Number, String], default: 0, required: true}
+  props: {},
   data () {
     return {
-      myChart: ""
+
     };
   },
   methods: {
-    init () {
-      this.myChart = echarts.init(this.$refs.pie);
-      var data0 = [[0,0,0],[0,1,3],[0,2,3],[0,3,0]];
-      var data1 = [[1,0,0],[1,1,4],[1,2,3.5],[1,3,0]];
-      var data2 = [[2,0,0],[2,1,3.1],[2,2,2.2],[2,3,0]];
-      var data3 = [[3,0,0],[3,1,1],[3,2,1.5],[3,3,0]];
-      var data4 = [[4,0,0],[4,1,1],[4,2,1],[4,3,0]];
-      var data5 = [[5,0,0],[5,1,1],[5,2,1.2],[5,3,0]];
-      var data6 = [[6,0,0],[6,1,1],[6,2,1.2],[6,3,0]];
+    initone () {
+      let mychart = echarts.init(this.$refs.mapone)
       let option = {
         tooltip: {},
-        backgroundColor: '#251135',
-        visualMap: {
-            show: false,
-            dimension: 1,
-            min: 0,
-            max: 5,
-            inRange: {
-              color: ['#3e2e9e', '#b948b0',  'blue' ]
+        geo: {
+          map: "china",
+          // map: "安徽",
+          regions: [{
+            name: '安徽',
+            itemStyle: {
+              color: '#5177ee'
             }
+          }]
         },
-        grid3D: {
-          // width: '80%',
-          // height: '90%',
-          // left: '10%',
-          boxHeight: 80,
-          boxDepth: 80,
-          axisPointer:{
-            show: false
-          },
-          axisLabel:{
-            textStyle: {
-              color: '#fff'
-            }
-          },
-          axisLine: {
-            lineStyle:{
-              width: 1,
-              color: '#6044c9'
-            }
-          },
-          splitLine:{
-            lineStyle:{
-              width: 1,
-              color: 'rgba(96, 68, 201, 0.4)'
-            }
-          },
-          viewControl: {
-              projection: 'orthographic'
-          }
-        },
-        xAxis3D: {
-          type: 'category',
-          name:' ',
-          data:['300','250','200','150', '100', '50', '0']
-        },
-        yAxis3D: {
-          type: 'category',
-          name:' ',
-          data:['data1','data2','data3','data4']
-        },
-        zAxis3D: {
-          type: 'value',
-          name:' ',
-          max: 10,
-          axisLabel:{
-            // show: false
-          },
-          splitLine:{
-            // show: false
-          },
-          axisTick:{
-            show: false
-          },
-          axisLine:{
-            lineStyle: {
-              width: 1,
-              color: 'rgba(96, 68, 201, 0.4)'
-            }
-          }
-        },
-        
         series: [
           {
-            type: 'line3D',
-            data: data0,
-            lineStyle: {
-              width: 3
-            }
-          },
-          {
-              type: 'line3D',
-              data: data1,
-              lineStyle: {
-                  width: 3
+            // type: 'scatter',
+            // 波纹特效
+            type: 'effectScatter',
+            coordinateSystem: 'geo',
+            symbolSize: 5,
+            rippleEffect: {
+              scale: 10
+            },
+            geoIndex: 0,
+            data: [
+              {
+               value: [117.27, 31.86],
+               symbol: 'pin'
               }
-          },
-          {
-            type: 'line3D',
-              data: data2,
-              lineStyle: {
-                  width: 3
-              }
-          },
-          {
-            type: 'line3D',
-              data: data3,
-              lineStyle: {
-                  width: 3
-              }
-          },
-          {
-            type: 'line3D',
-              data: data5,
-              lineStyle: {
-                  width: 3
-              }
-          },
-          {
-            type: 'line3D',
-              data: data6,
-              lineStyle: {
-                  width: 3
-              }
-          },
-          {
-            type: 'line3D',
-              data: data4,
-              lineStyle: {
-                  width: 3
-              }
-          },
+            ]
+          }
         ]
       };
-      this.myChart.setOption(option);
+      mychart.setOption(option)
     },
+    inittwo () {
+      let mychart = echarts.init(this.$refs.maptwo)
+      let option = {
+        tooltip: {},
+        geo3D: {
+          map: "china",
+          // map: "安徽",
+          regions: [{
+            name: '安徽',
+            itemStyle: {
+              color: '#5177ee'
+            }
+          }],
+          itemStyle: {
+            borderWidth: 1,
+            borderColor: '#999'
+          }
+        },
+        series: [
+          {
+            type: 'lines3D',
+            coordinateSystem: 'geo3D',
+            geo3DIndex: 0,
+            polyline: true,
+            effect: {
+              show: true,
+              trailColor: 'red',
+              trailOpacity: 1
+            },
+            // lineStyle: {
+            //   color: 'red',
+            //   opacity: 0
+            // },
+            data: [
+              [
+                [117.27, 31.86, -10], // 起点的经纬度和海拔坐标
+                [114.87, 40.82, 2000]  // 终点的经纬度和海拔坐标
+              ]
+            ]
+          },
+          
+        ]
+      };
+      mychart.setOption(option)
+    },
+
+  },
+  computed: {},
+  watch: {},
+  created () {
+
   },
   mounted () {
-    this.init()
+    this.initone()
+    this.inittwo()
   },
-  computed: {
-    
-  }
-};
+  beforeDestroy () { }, //生命周期 - 销毁之前
+  destroyed () { }, //生命周期 - 销毁完成
+  activated () { }, //如果页面有keep-alive缓存功能，这个函数会触发
+}
 </script>
-
-<style lang="scss" scoped>
-.chart-ring {
-  .pie-box {
-    height: 100%;
-  }
+<style lang='scss' scoped>
+//@import url(); 引入公共css类
+.box {
+  display: flex;
+}
+.mapbox {
+  height: 380px;
+  width: 380px;
 }
 </style>

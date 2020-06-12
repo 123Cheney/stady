@@ -1,10 +1,5 @@
 <template>
   <div class="page">
-    <el-button ><router-link to="page4-1"> to apple</router-link></el-button>
-    <!-- <el-button>go</el-button>
-    <el-button>go</el-button> -->
-
-
     <div class="icon-cards">
       <div class="icon_cards_content">
         <div class="icon">

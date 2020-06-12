@@ -1,6 +1,6 @@
 <template>
-  <div class="chart-area" :style="{height:'450px', width: '550px'}">
-    <div ref="pie" class="pie-box"></div>
+  <div class="chart-area">
+    <div ref="line3d" class="line-3d" :style="{height:'450px',width: '480px',}"></div>
   </div>
 </template>
 
@@ -16,32 +16,14 @@ export default {
   },
   methods: {
     init() {
-      this.myChart = echarts.init(this.$refs.pie);
-      function makeGaussian(amplitude, x0, y0, sigmaX, sigmaY) {
-        return function(amplitude, x0, y0, sigmaX, sigmaY, x, y) {
-          var exponent = -(
-            Math.pow(x - x0, 2) / (2 * Math.pow(sigmaX, 2)) +
-            Math.pow(y - y0, 2) / (2 * Math.pow(sigmaY, 2))
-          );
-          return amplitude * Math.pow(Math.E, exponent);
-        }.bind(null, amplitude, x0, y0, sigmaX, sigmaY);
-      }
-      var gaussian = makeGaussian(50, 0, 0, 20, 20);
-
+      this.myChart = echarts.init(this.$refs.line3d);
       var data = [];
-      // // 曲面图要求给入的数据是网格形式按顺序分布。
-      // for (var y = -50; y <= 50; y++) {
-      //   for (var x = -50; x <= 50; x++) {
-      //     var z = gaussian(x, y);
-      //     data.push([x, y, z]);
-      //   }
-      // }
       data = [
         [
           [0, 0, 0], [0.0001, 0, 0],
-          [0, 1, 0], [0.0001, 1, 1],
+          [0, 1, 0], [0.0001, 1, 3],
           [0, 2, 0], [0.0001, 2, 3],
-          [0, 3, 0], [0.0001, 3, 4]
+          [0, 3, 0], [0.0001, 3, 0]
         ],
         [
           [1, 0, 0], [1.0001, 0, 0],
@@ -94,9 +76,6 @@ export default {
           }
         },
         grid3D: {
-          // width: '80%',
-          // height: '90%',
-          // left: '10%',
           boxHeight: 80,
           boxDepth: 80,
           axisPointer: {
@@ -121,29 +100,22 @@ export default {
           },
           viewControl: {
             projection: "orthographic"
-            // beta: -60
           }
         },
         xAxis3D: {
           type: "category",
-          // name:' ',
+          name:' ',
           data: ["300", "250", "200", "150", "100", "50", "0"]
         },
         yAxis3D: {
           type: "category",
-          // name:' ',
+          name:' ',
           data: ["data1", "data2", "data3", "data4"]
         },
         zAxis3D: {
           type: "value",
-          // name:' ',
+          name:' ',
           max: 10,
-          axisLabel: {
-            // show: false
-          },
-          splitLine: {
-            // show: false
-          },
           axisTick: {
             show: false
           },
@@ -214,9 +186,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.chart-area {
-  .pie-box {
-    height: 100%;
-  }
-}
 </style>

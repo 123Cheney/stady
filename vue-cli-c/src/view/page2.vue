@@ -1,13 +1,23 @@
 <template>
   <div class="pie-3d">
     <canvas touch-action="none" :id="option.id" :style="{width: option.width, height: option.height}"></canvas>
+    <pieNew1/>
+    <pieNew2/>
+    <pieNew4/>
+    <pieNew5/>
+    <pieNew3/>
   </div>
 </template>
 
 <script>
+import pieNew1 from './page2sun-1.vue';
+import pieNew2 from './page2sun-2.vue';
+import pieNew3 from './page2sun-3.vue';
+import pieNew4 from './page2sun-4.vue';
+import pieNew5 from './page2sun-5.vue';
 import * as BABYLON from "babylonjs";
 export default {
-  components: {},
+  components: { pieNew1,pieNew2,pieNew3,pieNew4,pieNew5 } ,
   data() {
     return {
       canvas: "",
@@ -261,4 +271,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.pie-3d{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
 </style>

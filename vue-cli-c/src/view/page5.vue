@@ -1,253 +1,72 @@
+<!--  -->
 <template>
-  <div class="pie-3d" :style="{width: option.width}">
-    <div class="legend" :style="{top: option.legTop, right: option.legRight}">
-      <p v-for="(item,index) in pieData" :key="index" :style="{marginBottom: option.legItemGap}">
-        <span
-          class="icon"
-          :style="{background:`rgb(${item.color[0]}, ${item.color[1]}, ${item.color[2]}`}"
-        ></span>
-        <span class="name">{{item.name}}</span>
-      </p>
-    </div>
-    <canvas :id="option.id" :style="{width: option.width, height: option.height}"></canvas>
+  <div class='ss'>
+    <vue-WaterfallEasy ref="waterfall"
+                       :imgsArr="imgsArr"
+                       @scrollReachBottom="getData">
+      <h1 slot="waterfall-head">waterfall-head</h1>
+    </vue-WaterfallEasy>
   </div>
 </template>
 
 <script>
-import * as BABYLON from "babylonjs";
+import vueWaterfallEasy from 'vue-waterfall-easy'
+import axios from 'axios'
+//这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
+//例如：import 《组件名称》 from '《组件路径》';
+
 export default {
-  components: {},
-  data() {
+  //import引入的组件需要注入到对象中才能使用
+  components: { vueWaterfallEasy },
+  //props:  {type: Number或[Number, String], default: 0, required: true}
+  props: {},
+  data () {
+    //这里存放数据
     return {
-      canvas: "",
-      scene: "",
-      engine: "",
-      option: {
-        id: "two",
-        width: "480px",
-        height: "400px",
-        centerColor: [255, 255, 255],
-        legTop: "100px",
-        legRight: "40px",
-        legItemGap: "30px"
-      },
-      pieData: [
-        {
-          name: "测试数据1",
-          color: [108, 111, 181],
-          opctity: 0.7,
-          value: 40
-        },
-        {
-          name: "测试数据2",
-          color: [211, 121, 149],
-          opctity: 0.7,
-          value: 30
-        },
-        {
-          name: "测试数据3",
-          color: [0.6, 0.4, 0.6],
-          color: [237, 75, 111],
-          opctity: 0.7,
-          value: 40
-        }
-      ]
+      imgsArr: [],
+      group: 0,
+      res: require('./data.json')
     };
   },
-  props: {},
-  mounted() {
-    this.initial();
-  },
-
-  methods: {
-    initial () {
-      let _this = this;
-      _this.canvas = document.getElementById(this.option.id);
-      // 加载3D引擎
-      _this.engine = new BABYLON.Engine(_this.canvas, true, {
-        preserveDrawingBuffer: true,
-        stencil: true
-      });
-
-      setTimeout(() => {
-        _this.scene = this.createScene();
-        _this.engine.runRenderLoop(function() {
-          _this.scene.render();
-        });
-        window.addEventListener("resize", function() {
-          _this.engine.resize();
-        });
-      }, 0);
-    },
-
-    createArc(scene, height=0.2, diameter=0.6) {
-      var a = BABYLON.MeshBuilder.CreateCylinder(
-        "a",
-        {
-          diameter: diameter-0.2,
-          height: height + 0.01,
-          sideOrientation: BABYLON.Mesh.DOUBLESIDE,
-          tessellation: 96
-        },
-        scene
-      );
-      var b = BABYLON.MeshBuilder.CreateCylinder(
-        "b",
-        {
-          diameter: diameter, //外半径
-          height: height,
-          sideOrientation: BABYLON.Mesh.DOUBLESIDE,
-          tessellation: 96
-        },
-        scene
-      );
-      var c = BABYLON.MeshBuilder.CreateBox(
-        "c",
-        { width: diameter, depth:diameter, height: height + 0.01 },
-        scene
-      );
-
-      c.position.x = -diameter/2;
-      a.isVisible = false;
-      b.isVisible = false;
-      c.isVisible = false;
-
-      var aCSG = BABYLON.CSG.FromMesh(a);
-      var bCSG = BABYLON.CSG.FromMesh(b);
-      var cCSG = BABYLON.CSG.FromMesh(c);
-
-      var byCSG = bCSG.subtract(aCSG).subtract(cCSG);
-      var clonebyCSG = byCSG.clone();
-      var byMesh = byCSG.toMesh("csg1", null, scene);
-      var clonebyMesh = clonebyCSG.toMesh("csg2", null, scene);
-      clonebyMesh.isVisible = false;
-
-      a.scaling = new BABYLON.Vector3(0.9, 1.2, 0.9);
-      b.scaling = new BABYLON.Vector3(1.1, 1.1, 1.1);
-      c.scaling = new BABYLON.Vector3(1.1, 1.1, 1.1);
-      c.position.x = -diameter*1.1/2;
-      aCSG = BABYLON.CSG.FromMesh(a);
-      bCSG = BABYLON.CSG.FromMesh(b);
-      cCSG = BABYLON.CSG.FromMesh(c);
-      var ByCSG = bCSG.subtract(aCSG).subtract(cCSG);
-      var ByMesh = ByCSG.toMesh("csg5", null, scene);
-      byMesh.isVisible = false;
-      ByMesh.isVisible = false;
-      
-      if (this.pieData) {
-        var sum = 0;
-        var flag = 0;
-        var arc = 0;
-        this.pieData.map(item => {
-          sum += item.value;
-        });
-        this.pieData.map((item, index) => {
-          let subMesh = '';
-          let subCSG = '';
-          let mat0 = new BABYLON.StandardMaterial("mat0", scene);
-          mat0.diffuseColor = new BABYLON.Color3(
-            item.color[0] / 255,
-            item.color[1] / 255,
-            item.color[2] / 255
-          );
-          arc = (item.value / sum) * 360;
-          if (arc > 0 && arc <= 180) {
-            ByMesh.rotation.y = (Math.PI / 180) * arc;
-            ByCSG = BABYLON.CSG.FromMesh(ByMesh);
-            subCSG = byCSG.subtract(ByCSG);
-          } else {
-            clonebyMesh.rotation.y = (Math.PI / 180) * arc + Math.PI;
-            clonebyCSG = BABYLON.CSG.FromMesh(clonebyMesh);
-            subCSG = byCSG.union(clonebyCSG);
-          }
-          let scall = index / 1.5 + 1;
-          subCSG.scaling = new BABYLON.Vector3(1, scall, 1);
-          subMesh = subCSG.toMesh("csg7", mat0, scene);
-          subMesh.position = new BABYLON.Vector3(
-            0,
-            (scall * height) / 2 - 0.2,
-            0
-          );
-          subMesh.rotation.y = (Math.PI / 180) * flag;
-          subMesh.visibility = item.opctity;
-          flag += arc;
-        });
-      }
-    },
-
-    createScene () {
-      let { centerColor } = this.option;
-      let _this = this;
-      var scene = new BABYLON.Scene(_this.engine);
-      // 背景色
-      // scene.clearColor = new BABYLON.Color3(0, 0, 0);
-      var camera = new BABYLON.ArcRotateCamera(
-        "Camera",
-        Math.PI / 6,
-        Math.PI / 4,
-        2,
-        BABYLON.Vector3.Zero(),
-        scene
-      );
-      camera.lowerRadiusLimit = 2
-      camera.upperRadiusLimit = 2
-      camera.attachControl(_this.canvas, true);
-      camera.targetScreenOffset = new BABYLON.Vector2(-0.1, 0);
-
-      var light1 = new BABYLON.HemisphericLight(
-        "light1",
-        new BABYLON.Vector3(1, 1, 0),
-        scene
-      );
-      var light2 = new BABYLON.PointLight(
-        "light2",
-        new BABYLON.Vector3(0, 1, -1),
-        scene
-      );
-      // 中间圆柱
-      var sourceMat = new BABYLON.StandardMaterial("sourceMat", scene);
-      sourceMat.diffuseColor.copyFromFloats(
-        centerColor[0] / 255,
-        centerColor[1] / 255,
-        centerColor[2] / 255
-      );
-      var center = BABYLON.MeshBuilder.CreateCylinder(
-        "center",
-        {
-          diameter: 0.2,
-          height: 0.3,
-          sideOrientation: BABYLON.Mesh.DOUBLESIDE,
-          tessellation: 96
-        },
-        scene
-      );
-      center.material = sourceMat;
-      this.createArc(scene, 0.2, 0.6);
-
-      return scene;
-    }
-  },
+  //监听属性 类似于data概念
+  computed: {},
+  //监控data中的数据变化
   watch: {},
-  computed: {}
-};
-</script>
+  //方法集合
+  methods: {
+    getData () {
+      console.log(this.res)
+      //   axios.get('./data.json?group=' + this.group) // 真实环境中，后端会根据参数group返回新的图片数组，这里我用一个静态json文件模拟
+      //     .then(res => {
+      this.res.map((item, key) => {
+        this.group++
+        if (this.group === 10) { // 模拟已经无新数据，显示 slot="waterfall-over"
+          // this.$refs.waterfall.waterfallOver()
+          return
+        }
+        this.imgsArr = this.imgsArr.concat(item)
+      })
 
-<style lang="scss" scoped>
-.pie-3d {
-  position: relative;
-  background: rgb(51, 51, 76);
-  .legend {
-    position: absolute;
-    color: #fff;
-    font-size: 14px;
-    .icon {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      vertical-align: baseline;
-      margin-right: 10px;
-    }
-  }
+      // })
+    },
+  },
+  //生命周期 - 创建完成（可以访问当前this实例）
+  created () {
+    this.getData()
+  },
+  //生命周期 - 挂载完成（可以访问DOM元素）
+  mounted () {
+
+  },
+  beforeDestroy () { }, //生命周期 - 销毁之前
+  destroyed () { }, //生命周期 - 销毁完成
+  activated () { }, //如果页面有keep-alive缓存功能，这个函数会触发
+}
+</script>
+<style lang='scss' scoped>
+//@import url(); 引入公共css类
+.ss {
+  width: 100%;
+  height: 100%;
 }
 </style>
